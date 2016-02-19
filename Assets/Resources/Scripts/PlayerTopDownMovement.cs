@@ -10,7 +10,6 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     // MOVEMENT SPEEDS
     public float mForwardSpeed;
-    public float mRotationalSpeed;
     public Vector2 mVelocity;
 
     // REFRENCED GAMEOBJECTS
@@ -35,22 +34,18 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
         // GET THE VERICAL VELOCITY FROM INPUT AND ANDJUST IT TO SPEEDS
         mVelocity.y = Input.GetAxis(InputMap.VerticalL + ID);
-        if(mVelocity.y > 0) {
-            mVelocity.y = Mathf.Clamp(mVelocity.y * mForwardSpeed, 0, mForwardSpeed);
-        }
-
-        mVelocity.y = Input.GetButton(InputMap.ButtonA + ID) ? mForwardSpeed : 0;
         
         // GET THE HORIZONTAL VELOCITY FROM INPUT AND ADJUST IT TO SPEEDS
-        mVelocity.x = Input.GetAxis(InputMap.HorizontalL + ID) * -mRotationalSpeed;
+        mVelocity.x = Input.GetAxis(InputMap.HorizontalL + ID);
 
-        // MANIPULATE THE TURN SPEED TO TURN FASTER WHEN YOU ARE MOVING BASED OFF THE FORWARD VELOCITY
-        // ROTATE THE PLAYER BASED ON THE HORIZONTAL VELOCITY
-        mVelocity.x += (Mathf.Abs(mVelocity.y) * .1f) * mVelocity.x;
-        this.transform.Rotate(new Vector3(0, 0, mVelocity.x));
+        if (mVelocity.magnitude != 0)
+        {
+            transform.LookAt(transform.position + new Vector3(0, 0, 1), mVelocity);
+        }
+        
 
         // SET THE RIGIDBIDY2D VELOCITY
-        GetComponent<Rigidbody2D>().velocity = (transform.up * mVelocity.y);
+        GetComponent<Rigidbody2D>().velocity = (transform.up * mVelocity.magnitude * mForwardSpeed);
 
         // HANDLE SHOOTING
         Fire();
