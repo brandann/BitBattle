@@ -10,9 +10,11 @@ public class SimpleGlobal : MonoBehaviour {
     // UI SCORE DISPLAY
     public Text mPlayer1ScoreText;
     public Text mPlayer2ScoreText;
+    public Text mPlayer3ScoreText;
+    public Text mPlayer4ScoreText;
 
     // DEATH COUNTS
-    private int[] mScores = new int[2];
+    private int[] mScores = new int[4];
 
     public void Death(int PlayerID)
     {
@@ -20,7 +22,9 @@ public class SimpleGlobal : MonoBehaviour {
         mScores[PlayerID-1]++;
 
         // DISPLAY THE OTHER PLAYERS DEATH COUNT AS YOUR SCORE
-        mPlayer1ScoreText.text = "" + mScores[1];
-        mPlayer2ScoreText.text = "" + mScores[0];
+        mPlayer1ScoreText.text = "" + mScores[0] * -1;
+        mPlayer2ScoreText.text = "" + mScores[1] * -1;
+        mPlayer3ScoreText.text = "" + mScores[2] * -1;
+        mPlayer4ScoreText.text = "" + mScores[3] * -1;
     }
 }

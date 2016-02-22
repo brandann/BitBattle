@@ -14,21 +14,27 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     // REFRENCED GAMEOBJECTS
     public GameObject mBullet;
+    public GameObject mGlobalGameObject;
     public GameObject mCamera;
 
     // FIRING DELAY
     private float mLastFireTime;
-    private const float DURATION = 0.5f;
+    private const float DURATION = 0.25f;
+
+    // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
+    private Vector3 mStartingPosition;
 
 	// Use this for initialization
 	void Start () {
         // INIT VARIABLES
         mVelocity = new Vector2(0, 0);
+        mStartingPosition = transform.position;
 	}
 	
 	// Update is called once per frame
     void Update()
     {
+        
         // GET ID TO REDUCE CASTING IN UPDATE
         int ID = (int)mPlayerID;
 
@@ -43,12 +49,13 @@ public class PlayerTopDownMovement : MonoBehaviour {
             transform.LookAt(transform.position + new Vector3(0, 0, 1), mVelocity);
         }
         
-
         // SET THE RIGIDBIDY2D VELOCITY
         GetComponent<Rigidbody2D>().velocity = (transform.up * mVelocity.magnitude * mForwardSpeed);
 
         // HANDLE SHOOTING
         Fire();
+
+        if (null != mCamera) { mCamera.transform.position = this.transform.position + new Vector3(0, 0, -10); }
     }
 
     
@@ -60,7 +67,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
         {
             // RESET THE TIME OF THE THIS SHOOT BEING FIRED
             mLastFireTime = Time.timeSinceLevelLoad;
-
+            
             // CREATE THE RIGHT PROJECTILE
             var g1 = GameObject.Instantiate(mBullet);
             g1.transform.position = this.transform.position + (this.transform.right*0.6f);
@@ -70,6 +77,11 @@ public class PlayerTopDownMovement : MonoBehaviour {
             var g2 = GameObject.Instantiate(mBullet);
             g2.transform.position = this.transform.position - (this.transform.right*0.6f);
             g2.GetComponent<SimpleProjectileBehavior>().setTarget(this.transform.position + (this.transform.up * 20));
+            
+            // CREATE THE CENTER PROJECTILE
+            var g3 = GameObject.Instantiate(mBullet);
+            g3.transform.position = this.transform.position + (this.transform.up * 1f);
+            g3.GetComponent<SimpleProjectileBehavior>().setTarget(this.transform.position + (this.transform.up * 20));
         }
     }
 
@@ -91,17 +103,9 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     public void kill()
     {
-        // CHECK TO SEE WHAT PLAYER I AM FOR RESET LOCATION
-        if ((int)mPlayerID == 1)
-        {
-            this.transform.position = new Vector3(-6.93f, 2.91f, 0);
-        }
-        else
-        {
-            this.transform.position = new Vector3(3.65f, -3.92f, 0);
-        }
+        this.transform.position =mStartingPosition;
 
         // REGESTER DEATH WITH THE SIMPLE GLOBAL
-        mCamera.GetComponent<SimpleGlobal>().Death((int)mPlayerID);
+        mGlobalGameObject.GetComponent<SimpleGlobal>().Death((int)mPlayerID);
     }
 }

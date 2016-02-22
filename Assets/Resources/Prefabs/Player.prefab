@@ -12,7 +12,7 @@ GameObject:
   - 50: {fileID: 5030550}
   - 114: {fileID: 11410554}
   - 58: {fileID: 5818004}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -73,9 +73,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mPlayerID: 0
   mForwardSpeed: 6
-  mRotationalSpeed: 4
   mVelocity: {x: 0, y: 0}
   mBullet: {fileID: 195794, guid: 8b2731fb2a614d64b960426e08c4cdd9, type: 2}
+  mGlobalGameObject: {fileID: 0}
   mCamera: {fileID: 0}
 --- !u!212 &21274354
 SpriteRenderer:
@@ -156,6 +156,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: mRotationalSpeed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
