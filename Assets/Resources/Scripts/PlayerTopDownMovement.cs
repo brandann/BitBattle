@@ -21,6 +21,8 @@ public class PlayerTopDownMovement : MonoBehaviour {
     private float mLastFireTime;
     private const float DURATION = 0.25f;
 
+    private float mSpeedMod = 1;
+
     // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
     private Vector3 mStartingPosition;
 
@@ -50,7 +52,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
         }
         
         // SET THE RIGIDBIDY2D VELOCITY
-        GetComponent<Rigidbody2D>().velocity = (transform.up * mVelocity.magnitude * mForwardSpeed);
+        GetComponent<Rigidbody2D>().velocity = (transform.up * mVelocity.magnitude * mForwardSpeed * mSpeedMod);
 
         // HANDLE SHOOTING
         Fire();
@@ -101,6 +103,38 @@ public class PlayerTopDownMovement : MonoBehaviour {
         }
     }
 
+    // APPLY A SPEED MOD TO THE PLAYER ( +/- )
+    public void activateSpeedPowerup(float time, float mod)
+    {
+        // CREATE THE SPEED MOD
+        SpeedMod fm = new SpeedMod();
+        fm.time = time;
+        fm.mod = mod;
+
+        // START THE SPEED MOD COROUTINE
+        StartCoroutine("FreezeRoutine", fm);
+    }
+
+    // SPEED MOD STRUCT REQUIRED FOR COROUTINE ONLY ALLOWING A SINGLE
+    // PARAMETER...
+    private struct SpeedMod
+    {
+        public float time;
+        public float mod;
+    }
+
+    // COROUTINE FOR SPEED MOD
+    IEnumerator FreezeRoutine(SpeedMod fm)
+    {
+        
+        float prevSpeedMod = mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
+        mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
+        yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
+        mSpeedMod = prevSpeedMod;                   // RETURN THE MOD TO ITS PREV MOD
+        Debug.Log("Powerup Finished");              // DEBUGGING
+    }
+
+    // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
     public void kill()
     {
         this.transform.position =mStartingPosition;
