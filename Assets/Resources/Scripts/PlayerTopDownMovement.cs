@@ -10,7 +10,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     // MOVEMENT SPEEDS
     public float mForwardSpeed;
-    public Vector2 mVelocity;
+    private Vector2 mVelocity;
 
     // REFRENCED GAMEOBJECTS
     public GameObject mBullet;
@@ -25,6 +25,10 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
     private Vector3 mStartingPosition;
+
+    // AVAILABLE SHOTS TO THE PLAYER. SHOULD NEVER BE A NEG NUMBER
+    public int mAvailShots;
+    public int mTotalShotsFired;
 
 	// Use this for initialization
 	void Start () {
@@ -69,7 +73,14 @@ public class PlayerTopDownMovement : MonoBehaviour {
         {
             // RESET THE TIME OF THE THIS SHOOT BEING FIRED
             mLastFireTime = Time.timeSinceLevelLoad;
-            
+
+            // CHECK TO MAKE SURE THE PLAYER HAS SOME SHOTS AVAILABLE
+            if(mAvailShots <= 0) { return; } 
+
+            // SHOT COUNTERS
+            mAvailShots--;
+            mTotalShotsFired++;
+            /*
             // CREATE THE RIGHT PROJECTILE
             var g1 = GameObject.Instantiate(mBullet);
             g1.transform.position = this.transform.position + (this.transform.right*0.6f);
@@ -79,7 +90,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
             var g2 = GameObject.Instantiate(mBullet);
             g2.transform.position = this.transform.position - (this.transform.right*0.6f);
             g2.GetComponent<SimpleProjectileBehavior>().setTarget(this.transform.position + (this.transform.up * 20));
-            
+            */
             // CREATE THE CENTER PROJECTILE
             var g3 = GameObject.Instantiate(mBullet);
             g3.transform.position = this.transform.position + (this.transform.up * 1f);
@@ -98,8 +109,20 @@ public class PlayerTopDownMovement : MonoBehaviour {
         // IF: COLLIDER TAG IS A PROJECTILE
         if(c.tag == "Projectile")
         {
-            // PROJECTILE KILLS ME
-            kill();
+            // STOP AND RECYCLE TO PROJECTILE
+            var p = c.GetComponent<SimpleProjectileBehavior>();
+            if(p.mAvailableForPickup)
+            {
+                this.mAvailShots++;
+                Destroy(p.gameObject);
+            }
+            else
+            {
+                p.Stop();
+
+                // PROJECTILE KILLS ME
+                kill();
+            }
         }
     }
 

@@ -35,6 +35,10 @@ public class SimplePowerupGameObject : MonoBehaviour {
 
     void FreezePlayer(GameObject p, int id)
     {
+        // SHOULD CALL GLOBAL OR SOME POWERUP MANAGER TO DISH OUT TO EACH PLAYER
+        // WE DON'T WANT TO ALL POWERUPS TO HAVE A REFRENCE TO EACH PLAYER
+        // JUST SEND THE ACTIVATED POWERUP AND THE PLAYERS ID TO A CENTRAL CLASS
+        // TO SORT OUT WHAT TO DO...
         if((int)p.gameObject.GetComponent<PlayerTopDownMovement>().mPlayerID == id) { return; }
         p.gameObject.GetComponent<PlayerTopDownMovement>().activateSpeedPowerup(3, 0.3f);
     }
