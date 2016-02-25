@@ -10,12 +10,10 @@ public class SimpleRotation : MonoBehaviour {
 
     private Vector3 mRotation;
 
-	// Use this for initialization
 	void Start () {
-        setRotation(RotationDirection, RotationSpeed, true);
+        SetRotation(RotationDirection, RotationSpeed, true);
     }
 	
-	// Update is called once per frame
 	void Update () {
         if (mRotationActive)
         {
@@ -23,15 +21,26 @@ public class SimpleRotation : MonoBehaviour {
         }
 	}
 
-    public void setRotation(int direction, float speed, bool active)
+    // SET THE ROTATION PARAMS FOR THE GAMEOBJECT
+    // DIRECTION (INT) -1,0,1 ROATION DIRECTION RESPECTIVLY
+    // SPEED (FLOAT) ROTATION PER UPDATE <- SCALED VIA TIME.DELTATIME
+    // ACTIVE (BOOL) IS THE ROATION ACTIVE?
+    public void SetRotation(int direction, float speed, bool active)
     {
         mRotation = new Vector3(0, 0, -1 * direction * speed);
         mRotationActive = active;
     }
 
+    // SETS THE ACTIVE PARAM OF THE ROTATION
     public void SetRotationEnabled(bool active)
     {
         mRotationActive = active;
+    }
+
+    // REVERSE THE ROTATION
+    public void ReverseRotation()
+    {
+        mRotation = -1 * mRotation;
     }
     
 }

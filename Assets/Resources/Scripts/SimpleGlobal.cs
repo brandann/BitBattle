@@ -22,9 +22,9 @@ public class SimpleGlobal : MonoBehaviour {
         mScores[PlayerID-1]++;
 
         // DISPLAY THE OTHER PLAYERS DEATH COUNT AS YOUR SCORE
-        mPlayer1ScoreText.text = "" + mScores[0] * -1;
-        mPlayer2ScoreText.text = "" + mScores[1] * -1;
-        mPlayer3ScoreText.text = "" + mScores[2] * -1;
-        mPlayer4ScoreText.text = "" + mScores[3] * -1;
+        mPlayer1ScoreText.text = "" + mScores[0] * -1 + " P" + 1;
+        mPlayer2ScoreText.text = "" + mScores[1] * -1 + " P" + 2;
+        mPlayer3ScoreText.text = "" + mScores[2] * -1 + " P" + 3;
+        mPlayer4ScoreText.text = "" + mScores[3] * -1 + " P" + 4;
     }
 }

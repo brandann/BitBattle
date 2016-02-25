@@ -5,7 +5,7 @@ public class Portal : MonoBehaviour {
 
     // IS THE PORTAL OBJECT A PORTAL ENTRANCE
     public bool mPortalEnter;
-
+    
     // DESTINATION FOR PLAYER ENTERING THE PORTAL
     public GameObject mDestination;
 
@@ -20,3 +20,8 @@ public class Portal : MonoBehaviour {
         }
     }
 }
+
+
+// TODO: Add layers for collisions
+// public LayerMask mLayerMask;
+// if (mPortalEnter && ((mLayerMask.value & (int)Mathf.Pow(2f, (float)c.gameObject.layer)) != 0))

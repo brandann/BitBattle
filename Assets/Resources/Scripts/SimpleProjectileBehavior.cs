@@ -52,7 +52,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         //c.radius = c.radius * 2;
         mSpeedMod = 0;
         mAvailableForPickup = true;
-        this.gameObject.GetComponent<SimpleRotation>().setRotation(1, 100, true);
+        this.gameObject.GetComponent<SimpleRotation>().SetRotation(1, 100, true);
         print("stop");
         mActive = false;
     }
