@@ -13,6 +13,8 @@ public class SimpleProjectileBehavior : MonoBehaviour {
     private float mSpeedMod = 1;
 
     private bool mActive = true;
+
+    public int mOwnerID;
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,9 +37,38 @@ public class SimpleProjectileBehavior : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        var v = this.transform.up * -1;
-        Target = this.transform.position + v;
-        //Stop();
+        if (c.gameObject.tag == "Player")
+        {
+            collideWithPlayer(c.gameObject.GetComponent<PlayerTopDownMovement>());
+        }
+        else
+        {
+            var v = this.transform.up * -1;
+            Target = this.transform.position + v;
+        }
+
+    }
+
+    private void collideWithPlayer(PlayerTopDownMovement go)
+    {
+        if ((int)go.mPlayerID == mOwnerID)
+        {
+            return; // DO NOTHING, THIS IS MY OWN PROJECTILE
+        }
+
+        // STOP AND RECYCLE TO PROJECTILE
+        if (mAvailableForPickup)
+        {
+            // AVAILABLE PROJECTILE GETS PICKED UP BY PLAYER
+            go.PickupBullet();
+            Destroy(this.gameObject);
+        }
+        else 
+        {
+            // ACTIVE PROJECTILE DIES WHEN COLLISDES WITH A PLAYER
+            go.kill();  // PROJECTILE KILLS ME
+            Destroy(this.gameObject);
+        }
     }
 
     // CAN BE CALLED FROM OUTSIDE TO INIT THE TARGET
@@ -53,7 +84,13 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         mSpeedMod = 0;
         mAvailableForPickup = true;
         this.gameObject.GetComponent<SimpleRotation>().SetRotation(1, 100, true);
-        print("stop");
+        //print("stop");
         mActive = false;
+        mOwnerID = -1;
+    }
+
+    public void SetOwner(int id)
+    {
+        mOwnerID = id;
     }
 }

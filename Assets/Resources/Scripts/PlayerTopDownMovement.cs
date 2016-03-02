@@ -40,30 +40,41 @@ public class PlayerTopDownMovement : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
-        
+        Move(); // HANDLE MOVING
+        Fire(); // HANDLE SHOOTING
+    }
+
+    private void Move()
+    {
         // GET ID TO REDUCE CASTING IN UPDATE
         int ID = (int)mPlayerID;
 
         // GET THE VERICAL VELOCITY FROM INPUT AND ANDJUST IT TO SPEEDS
         mVelocity.y = Input.GetAxis(InputMap.VerticalL + ID);
-        
+
         // GET THE HORIZONTAL VELOCITY FROM INPUT AND ADJUST IT TO SPEEDS
         mVelocity.x = Input.GetAxis(InputMap.HorizontalL + ID);
 
-        if (mVelocity.magnitude != 0)
+        // GET MOVEMENT ACTIVE WITH A BUTTON
+        // int accelerate = (Input.GetButton(InputMap.ButtonA + ID)) ? 1 : 0;
+        int accelerate = 1; // for keyboard its easier to not use this!
+
+        //if (mVelocity.magnitude != 0)
+        if((Input.GetAxisRaw(InputMap.VerticalL + ID) != 0) || (Input.GetAxisRaw(InputMap.HorizontalL + ID) != 0))
         {
             transform.LookAt(transform.position + new Vector3(0, 0, 1), mVelocity);
         }
         
         // SET THE RIGIDBIDY2D VELOCITY
-        GetComponent<Rigidbody2D>().velocity = (transform.up * mVelocity.magnitude * mForwardSpeed * mSpeedMod);
+        GetComponent<Rigidbody2D>().velocity = (transform.up * mVelocity.magnitude * mForwardSpeed * mSpeedMod * accelerate);
 
-        // HANDLE SHOOTING
-        Fire();
-
-        if (null != mCamera) { mCamera.transform.position = this.transform.position + new Vector3(0, 0, -10); }
+        // IF A CAMERA IS ATTACHED TO THIS GAME OBJECT THEN MOVE THE CAMERA WITH THE PLAYER
+        // THIS IS A TESTING THING, REMOVE CODE IF SPLIT SCREEN IS TO NOT BE USED
+        if (null != mCamera)
+        {
+            mCamera.transform.position = this.transform.position + new Vector3(0, 0, -10);
+        }
     }
-
     
     private void Fire()
     {
@@ -80,22 +91,20 @@ public class PlayerTopDownMovement : MonoBehaviour {
             // SHOT COUNTERS
             mAvailShots--;
             mTotalShotsFired++;
-            /*
-            // CREATE THE RIGHT PROJECTILE
-            var g1 = GameObject.Instantiate(mBullet);
-            g1.transform.position = this.transform.position + (this.transform.right*0.6f);
-            g1.GetComponent<SimpleProjectileBehavior>().setTarget(this.transform.position + (this.transform.up * 20));
-
-            // CREATE THE LEFT PROJECTILE
-            var g2 = GameObject.Instantiate(mBullet);
-            g2.transform.position = this.transform.position - (this.transform.right*0.6f);
-            g2.GetComponent<SimpleProjectileBehavior>().setTarget(this.transform.position + (this.transform.up * 20));
-            */
-            // CREATE THE CENTER PROJECTILE
-            var g3 = GameObject.Instantiate(mBullet);
-            g3.transform.position = this.transform.position + (this.transform.up * 1f);
-            g3.GetComponent<SimpleProjectileBehavior>().setTarget(this.transform.position + (this.transform.up * 20));
+            
+            FireHelper(this.transform.position + (this.transform.up * 1f));         // CREATE THE CENTER PROJECTILE
+            //FireHelper(this.transform.position - (this.transform.right * 0.6f));    // CREATE THE LEFT PROJECTILE
+            //FireHelper(this.transform.position + (this.transform.right * 0.6f));    // CREATE THE RIGHT PROJECTILE
         }
+    }
+
+    private void FireHelper(Vector3 pos)
+    {
+        var g3 = GameObject.Instantiate(mBullet);
+        g3.transform.position = pos;
+        var SPB = g3.GetComponent<SimpleProjectileBehavior>();
+        SPB.setTarget(this.transform.position + (this.transform.up * 20));
+        SPB.SetOwner((int) this.mPlayerID);
     }
 
     public void Teleport(GameObject go)
@@ -105,25 +114,13 @@ public class PlayerTopDownMovement : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D c)
-    {
-        // IF: COLLIDER TAG IS A PROJECTILE
-        if(c.tag == "Projectile")
-        {
-            // STOP AND RECYCLE TO PROJECTILE
-            var p = c.GetComponent<SimpleProjectileBehavior>();
-            if(p.mAvailableForPickup)
-            {
-                this.mAvailShots++;
-                Destroy(p.gameObject);
-            }
-            else
-            {
-                p.Stop();
+    { 
 
-                // PROJECTILE KILLS ME
-                kill();
-            }
-        }
+    }
+
+    public void PickupBullet()
+    {
+        this.mAvailShots++;
     }
 
     // APPLY A SPEED MOD TO THE PLAYER ( +/- )
@@ -154,7 +151,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
         mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
         yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
         mSpeedMod = prevSpeedMod;                   // RETURN THE MOD TO ITS PREV MOD
-        Debug.Log("Powerup Finished");              // DEBUGGING
+        //Debug.Log("Powerup Finished");            // DEBUGGING
     }
 
     // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
