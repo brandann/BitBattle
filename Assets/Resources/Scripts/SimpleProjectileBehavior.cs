@@ -14,8 +14,10 @@ public class SimpleProjectileBehavior : MonoBehaviour {
 
     private bool mActive = true;
 
-    public int mOwnerID;
+    private int mOwnerID;
 	
+    public GameObject mTriangleCollider;
+
 	// Update is called once per frame
 	void Update () {
         // IF THE TARGET IS NOT SET THEN DO NOTHING
@@ -43,6 +45,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         }
         else
         {
+            //var v = Vector3.Reflect(this.transform.up, c.transform.up);
             var v = this.transform.up * -1;
             Target = this.transform.position + v;
         }
@@ -87,6 +90,8 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         //print("stop");
         mActive = false;
         mOwnerID = -1;
+        //this.gameObject.GetComponentInChildren<PolygonCollider2D>().enabled = false;
+        //this.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
     }
 
     public void SetOwner(int id)
