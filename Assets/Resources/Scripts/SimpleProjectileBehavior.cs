@@ -15,8 +15,6 @@ public class SimpleProjectileBehavior : MonoBehaviour {
     private bool mActive = true;
 
     private int mOwnerID;
-	
-    public GameObject mTriangleCollider;
 
 	// Update is called once per frame
 	void Update () {

@@ -23,12 +23,16 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     private float mSpeedMod = 1;
 
+    private bool mForceFieldIsActive = false;
+
     // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
     private Vector3 mStartingPosition;
 
     // AVAILABLE SHOTS TO THE PLAYER. SHOULD NEVER BE A NEG NUMBER
     public int mAvailShots;
     public int mTotalShotsFired;
+
+    public GameObject mShieldPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -187,7 +191,6 @@ public class PlayerTopDownMovement : MonoBehaviour {
     // COROUTINE FOR SPEED MOD
     IEnumerator FreezeRoutine(SpeedMod fm)
     {
-        
         float prevSpeedMod = mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
         mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
         yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
@@ -195,12 +198,39 @@ public class PlayerTopDownMovement : MonoBehaviour {
         //Debug.Log("Powerup Finished");            // DEBUGGING
     }
 
+    public GameObject mForceFieldObject;
+    public void activateSheildPowerup(float time)
+    {
+        mForceFieldIsActive = true;
+        mForceFieldObject = GameObject.Instantiate(mShieldPrefab);
+        mForceFieldObject.transform.position = this.transform.position;
+        mForceFieldObject.transform.parent = this.transform;
+
+        // START THE SHIELD MOD COROUTINE
+        StartCoroutine("ShieldRoutine", time);
+    }
+
+    // COROUTINE FOR SHIELD MOD
+    IEnumerator ShieldRoutine(float time)
+    {
+        yield return new WaitForSeconds(time);   // WAIT FOR THE MOD DURATION TO FINISH
+        this.mForceFieldIsActive = false;
+        Destroy(mForceFieldObject);
+    }
+
     // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
     public void kill()
     {
-        this.transform.position =mStartingPosition;
-
-        // REGESTER DEATH WITH THE SIMPLE GLOBAL
-        mGlobalGameObject.GetComponent<SimpleGlobal>().Death((int)mPlayerID);
+        if(mForceFieldIsActive)
+        {
+            // DO NOT HURT THE PLAYER
+            this.mAvailShots++;
+        }
+        else
+        {
+            this.transform.position = mStartingPosition;
+            // REGESTER DEATH WITH THE SIMPLE GLOBAL
+            mGlobalGameObject.GetComponent<SimpleGlobal>().Death((int)mPlayerID);
+        }
     }
 }
