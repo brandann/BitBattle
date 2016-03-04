@@ -17,7 +17,7 @@ public class SimplePowerupGameObject : MonoBehaviour {
         {
             switch(mPowerup)
             {
-                case (ePowerups.Freeze):
+                case (ePowerups.Freeze): // MAKE AS A FUNCTION
                     int id = (int)c.gameObject.GetComponent<PlayerTopDownMovement>().mPlayerID;
                     FreezePlayer(mPlayer1, id);
                     FreezePlayer(mPlayer2, id);
@@ -25,11 +25,11 @@ public class SimplePowerupGameObject : MonoBehaviour {
                     FreezePlayer(mPlayer4, id);
                     Destroy(this.gameObject);
                     break;
-                case (ePowerups.FastSpeed):
+                case (ePowerups.FastSpeed): // MAKE AS A FUNCTION
                     c.gameObject.GetComponent<PlayerTopDownMovement>().activateSpeedPowerup(4, 2f);
                     Destroy(this.gameObject);
                     break;
-                case (ePowerups.Shield):
+                case (ePowerups.Shield): // MAKE AS A FUNCTION
                     c.gameObject.GetComponent<PlayerTopDownMovement>().activateSheildPowerup(8f);
                     Destroy(this.gameObject);
                     break;
@@ -37,7 +37,7 @@ public class SimplePowerupGameObject : MonoBehaviour {
         }
     }
 
-    void FreezePlayer(GameObject p, int id)
+    void FreezePlayer(GameObject p, int id) // MAKE AS A HELPER FUNCTION
     {
         // SHOULD CALL GLOBAL OR SOME POWERUP MANAGER TO DISH OUT TO EACH PLAYER
         // WE DON'T WANT TO ALL POWERUPS TO HAVE A REFRENCE TO EACH PLAYER

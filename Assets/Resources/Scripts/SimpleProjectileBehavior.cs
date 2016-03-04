@@ -43,11 +43,21 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         }
         else
         {
+            /*
+                TODO
+
+                THE PROJECTILE SHOULD REFLECT OFF THE SURFCE. RIGHT NOW I HAVE A HACKY INCORRECT REFLECTION
+                IMPLEMENTED THAT ONLY REFLECTS NEG FRONT VEC
+                SHOULE BE UPDATED WITH NORMALS, FRONTS, DOTS AND CROSS MATH TO ACURATLY REFLECT THE PROJECILE
+
+                PROJECTILE SHOULD BOUNCE MORE THAN 1 TIME? MAKE CODE ABLE TO SUPPORT A VARIABLE NUMBER OF WALL BOUNCES.
+                CAN BE IN A STRUCT THAT CONTAINS THE TARGET, SPEED, BOUNCES, OWNER, ETC.
+            */
+
             //var v = Vector3.Reflect(this.transform.up, c.transform.up);
             var v = this.transform.up * -1;
             Target = this.transform.position + v;
         }
-
     }
 
     private void collideWithPlayer(PlayerTopDownMovement go)
@@ -67,7 +77,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         else 
         {
             // ACTIVE PROJECTILE DIES WHEN COLLISDES WITH A PLAYER
-            go.kill();  // PROJECTILE KILLS ME
+            go.kill(PlayerTopDownMovement.ePlayerDeathEvents.Projectile);  // PROJECTILE KILLS ME
             Destroy(this.gameObject);
         }
     }

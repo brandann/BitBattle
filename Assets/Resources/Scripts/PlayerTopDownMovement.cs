@@ -92,6 +92,17 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
                 RaycastHit2D hit2;
                 // Ray ray = new Ray(this.transform.position, this.transform.up);
+
+                /*
+                TODO
+
+                THE BEAM SHOULD REFLECT OFF THE SURFCE. RIGHT NOW I HAVE A HACKY INCORRECT REFLECTION
+                IMPLEMENTED THAT A) ONLY GOES RIGHT OF THE PLAYER, B) ONLY REFLECTS AT A 90 DEG ANGLE.
+                SHOULE BE UPDATED WITH NORMALS, FRONTS, DOTS AND CROSS MATH TO ACURATLY REFLECT THE BEAM
+
+                BEAM SHOULD ALSO NOT DUPLICATE, SHOULD BE A SINGLE BEAM THAT UPDATES AS THE PLAYER MOVES.
+                */
+
                 Vector2 up = new Vector2(this.transform.up.x, this.transform.up.y) * -1;
                 if (hit2 = Physics2D.Raycast(hit1.point + up, this.transform.right, Mathf.Infinity))
                 {
@@ -123,6 +134,15 @@ public class PlayerTopDownMovement : MonoBehaviour {
         }
     }
 
+    private void FireHelper(Vector3 pos)
+    {
+        var g3 = GameObject.Instantiate(mBullet);
+        g3.transform.position = pos;
+        var SPB = g3.GetComponent<SimpleProjectileBehavior>();
+        SPB.setTarget(this.transform.position + (this.transform.up * 1000 /*dist should be large number. maybe change to a non distance (non-target)*/));
+        SPB.SetOwner((int)this.mPlayerID);
+    }
+
     private void drawMyLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
     {
         StartCoroutine(drawLine(start, end, color, duration));
@@ -142,16 +162,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
         yield return new WaitForSeconds(duration);
         GameObject.Destroy(myLine);
     }
-
-    private void FireHelper(Vector3 pos)
-    {
-        var g3 = GameObject.Instantiate(mBullet);
-        g3.transform.position = pos;
-        var SPB = g3.GetComponent<SimpleProjectileBehavior>();
-        SPB.setTarget(this.transform.position + (this.transform.up * 20));
-        SPB.SetOwner((int) this.mPlayerID);
-    }
-
+    
     public void Teleport(GameObject go)
     {
         // MOVE MY POSITION TO THE TELEPORT DESTINATION
@@ -218,19 +229,45 @@ public class PlayerTopDownMovement : MonoBehaviour {
         Destroy(mForceFieldObject);
     }
 
+    public enum ePlayerDeathEvents { Projectile, Lava}
     // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
-    public void kill()
+    public void kill(ePlayerDeathEvents e)
     {
-        if(mForceFieldIsActive)
+        bool death = false;
+        switch(e)
         {
-            // DO NOT HURT THE PLAYER
-            this.mAvailShots++;
+            case (ePlayerDeathEvents.Projectile):
+                death = KillProjectile();
+                break;
+            case (ePlayerDeathEvents.Lava):
+                death = KillLava();
+                break;
         }
-        else
+        
+        if(death)
         {
             this.transform.position = mStartingPosition;
+            
             // REGESTER DEATH WITH THE SIMPLE GLOBAL
             mGlobalGameObject.GetComponent<SimpleGlobal>().Death((int)mPlayerID);
         }
+    }
+
+    private bool KillLava()
+    {
+        // RIGHT NOW LAVA KILLS YOU NO MATTER WHAT!
+        return true; 
+    }
+
+    private bool KillProjectile()
+    {
+        if (mForceFieldIsActive)
+        {
+            // DO NOT HURT THE PLAYER
+            this.mAvailShots++;
+            Debug.Log("Kill blocked by Shield");
+            return false;
+        }
+        return true;
     }
 }

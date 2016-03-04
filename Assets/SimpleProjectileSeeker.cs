@@ -1,6 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+    THIS CODE IS NOT USED BY ANY GAME OBJECTS!
+
+    #########################################################
+    #                                                       #
+    #       BE SURE TO DELETE THIS IF CODE GETS USED        #
+    #                                                       #
+    #########################################################
+*/
+
 public class SimpleProjectileSeeker : MonoBehaviour {
 
     public GameObject mPlayer;
