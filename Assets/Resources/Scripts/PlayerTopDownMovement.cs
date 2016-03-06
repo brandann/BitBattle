@@ -33,9 +33,15 @@ public class PlayerTopDownMovement : MonoBehaviour {
     public int mTotalShotsFired;
 
     public GameObject mShieldPrefab;
+    private GameObject mForceFieldObject;
 
-	// Use this for initialization
-	void Start () {
+    public GameObject mFastPrefab;
+    private GameObject mFastObject;
+
+    public enum ePlayerDeathEvents { Projectile, Lava }
+
+    // Use this for initialization
+    void Start () {
         // INIT VARIABLES
         mVelocity = new Vector2(0, 0);
         mStartingPosition = transform.position;
@@ -179,6 +185,43 @@ public class PlayerTopDownMovement : MonoBehaviour {
         this.mAvailShots++;
     }
 
+    // SPEED MOD STRUCT REQUIRED FOR COROUTINE ONLY ALLOWING A SINGLE
+    // PARAMETER...
+    private struct SpeedMod
+    {
+        public float time;
+        public float mod;
+    }
+
+    #region FAST_POWER
+    // APPLY A SPEED MOD TO THE PLAYER ( +/- )
+    public void activateFastPowerup(float time, float mod)
+    {
+        mFastObject = GameObject.Instantiate(mFastPrefab);
+        mFastObject.transform.position = this.transform.position;
+        //mFastObject.transform.forward = this.transform.forward;
+        mFastObject.transform.parent = this.transform;
+
+        // CREATE THE SPEED MOD
+        SpeedMod fm = new SpeedMod();
+        fm.time = time;
+        fm.mod = mod;
+
+        // START THE SPEED MOD COROUTINE
+        StartCoroutine("FreezeRoutine", fm);
+        StartCoroutine("FastRoutine", time);
+    }
+
+    // COROUTINE FOR SHIELD MOD
+    IEnumerator FastRoutine(float time)
+    {
+        yield return new WaitForSeconds(time);   // WAIT FOR THE MOD DURATION TO FINISH
+        //this.mForceFieldIsActive = false;
+        Destroy(mFastObject);
+    }
+    #endregion END_FAST
+    
+    #region FREEZE_POWER
     // APPLY A SPEED MOD TO THE PLAYER ( +/- )
     public void activateSpeedPowerup(float time, float mod)
     {
@@ -191,14 +234,6 @@ public class PlayerTopDownMovement : MonoBehaviour {
         StartCoroutine("FreezeRoutine", fm);
     }
 
-    // SPEED MOD STRUCT REQUIRED FOR COROUTINE ONLY ALLOWING A SINGLE
-    // PARAMETER...
-    private struct SpeedMod
-    {
-        public float time;
-        public float mod;
-    }
-
     // COROUTINE FOR SPEED MOD
     IEnumerator FreezeRoutine(SpeedMod fm)
     {
@@ -208,8 +243,9 @@ public class PlayerTopDownMovement : MonoBehaviour {
         mSpeedMod = prevSpeedMod;                   // RETURN THE MOD TO ITS PREV MOD
         //Debug.Log("Powerup Finished");            // DEBUGGING
     }
+    #endregion END_FREEZE
 
-    public GameObject mForceFieldObject;
+    #region SHIELD_POWER
     public void activateSheildPowerup(float time)
     {
         mForceFieldIsActive = true;
@@ -228,8 +264,9 @@ public class PlayerTopDownMovement : MonoBehaviour {
         this.mForceFieldIsActive = false;
         Destroy(mForceFieldObject);
     }
+    #endregion END_SHIELD
 
-    public enum ePlayerDeathEvents { Projectile, Lava}
+    #region DEATH_EVENTS
     // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
     public void kill(ePlayerDeathEvents e)
     {
@@ -270,4 +307,5 @@ public class PlayerTopDownMovement : MonoBehaviour {
         }
         return true;
     }
+    #endregion END_KILL
 }

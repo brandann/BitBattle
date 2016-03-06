@@ -26,7 +26,7 @@ public class SimplePowerupGameObject : MonoBehaviour {
                     Destroy(this.gameObject);
                     break;
                 case (ePowerups.FastSpeed): // MAKE AS A FUNCTION
-                    c.gameObject.GetComponent<PlayerTopDownMovement>().activateSpeedPowerup(4, 2f);
+                    c.gameObject.GetComponent<PlayerTopDownMovement>().activateFastPowerup(4, 2f);
                     Destroy(this.gameObject);
                     break;
                 case (ePowerups.Shield): // MAKE AS A FUNCTION
