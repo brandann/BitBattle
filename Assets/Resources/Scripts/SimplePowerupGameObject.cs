@@ -8,7 +8,7 @@ public class SimplePowerupGameObject : MonoBehaviour {
     public GameObject mPlayer3;
     public GameObject mPlayer4;
 
-    public enum ePowerups { Freeze, FastSpeed, Shield}
+    public enum ePowerups { Freeze, FastSpeed, Shield, Invicible}
     public ePowerups mPowerup;
 
     void OnCollisionEnter2D(Collision2D c)
@@ -29,8 +29,12 @@ public class SimplePowerupGameObject : MonoBehaviour {
                     c.gameObject.GetComponent<PlayerTopDownMovement>().activateFastPowerup(4, 2f);
                     Destroy(this.gameObject);
                     break;
-                case (ePowerups.Shield): // MAKE AS A FUNCTION
-				c.gameObject.GetComponent<PlayerTopDownMovement>().activateInvinciblePowerup(8f);
+                case (ePowerups.Invicible): // MAKE AS A FUNCTION
+					c.gameObject.GetComponent<PlayerTopDownMovement>().activateInvinciblePowerup(8f);
+                    Destroy(this.gameObject);
+                    break;
+                case(ePowerups.Shield):
+                    c.gameObject.GetComponent<PlayerTopDownMovement>().activateShieldPowerup();
                     Destroy(this.gameObject);
                     break;
             }

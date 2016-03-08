@@ -214,14 +214,19 @@ public class PlayerTopDownMovement : MonoBehaviour {
         fm.mod = mod;
 
         // START THE SPEED MOD COROUTINE
-        StartCoroutine("FreezeRoutine", fm);
-        StartCoroutine("FastRoutine", time);
+        StartCoroutine("FastRoutine", fm);
     }
 
     // COROUTINE FOR SHIELD MOD
-    IEnumerator FastRoutine(float time)
-    {
-        yield return new WaitForSeconds(time);   // WAIT FOR THE MOD DURATION TO FINISH
+	IEnumerator FastRoutine(SpeedMod fm)
+	{
+		float prevSpeedMod = mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
+		mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
+		yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
+		mSpeedMod = prevSpeedMod;                   // RETURN THE MOD TO ITS PREV MOD
+		//Debug.Log("Powerup Finished");            // DEBUGGING
+		
+		yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
         //this.mForceFieldIsActive = false;
         Destroy(mFastObject);
     }
@@ -276,7 +281,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
 	public void activateShieldPowerup()
 	{
 		mShieldIsActive = true;
-		mShieldObject = GameObject.Instantiate(mShieldObject);
+		mShieldObject = GameObject.Instantiate(mShieldPrefab);
 		mShieldObject.transform.position = this.transform.position;
 		mShieldObject.transform.parent = this.transform;
 	}
@@ -302,6 +307,14 @@ public class PlayerTopDownMovement : MonoBehaviour {
             var burstGO = GameObject.Instantiate(mBurstPrefab);
             burstGO.transform.position = this.transform.position;
             this.transform.position = mStartingPosition;
+            
+            Destroy(mShieldObject);
+            mShieldIsActive = false;
+            
+            Destroy(mInvincibleObject);
+            mInvincibleIsActive = false;
+            
+            Destroy(mFastObject);
             
             // REGESTER DEATH WITH THE SIMPLE GLOBAL
             mGlobalGameObject.GetComponent<SimpleGlobal>().Death((int)mPlayerID);

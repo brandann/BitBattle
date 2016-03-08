@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burstPrefab: {fileID: 109190, guid: 59f2644cfe4f5064ea609fad0d90d1c5, type: 2}
+  duration: 20
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -51,6 +52,10 @@ Prefab:
       propertyPath: burstPrefab
       value: 
       objectReference: {fileID: 109190, guid: 59f2644cfe4f5064ea609fad0d90d1c5, type: 2}
+    - target: {fileID: 0}
+      propertyPath: duration
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 176788}
