@@ -23,7 +23,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     private float mSpeedMod = 1;
 
-    private bool mForceFieldIsActive = false;
+    private bool mInvincibleIsActive = false;
 
     // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
     private Vector3 mStartingPosition;
@@ -32,11 +32,15 @@ public class PlayerTopDownMovement : MonoBehaviour {
     public int mAvailShots;
     public int mTotalShotsFired;
 
-    public GameObject mShieldPrefab;
-    private GameObject mForceFieldObject;
+	public GameObject mInvinciblePrefab;
+    private GameObject mInvincibleObject;
 
     public GameObject mFastPrefab;
     private GameObject mFastObject;
+    
+    public GameObject mShieldPrefab;
+    private GameObject mShieldObject;
+    private bool mShieldIsActive = false;
 
     public enum ePlayerDeathEvents { Projectile, Lava }
 
@@ -245,26 +249,36 @@ public class PlayerTopDownMovement : MonoBehaviour {
     }
     #endregion END_FREEZE
 
-    #region SHIELD_POWER
-    public void activateSheildPowerup(float time)
+    #region INVINCIBLE_POWER
+	public void activateInvinciblePowerup(float time)
     {
-        mForceFieldIsActive = true;
-        mForceFieldObject = GameObject.Instantiate(mShieldPrefab);
-        mForceFieldObject.transform.position = this.transform.position;
-        mForceFieldObject.transform.parent = this.transform;
+		this.mInvincibleIsActive = true;
+		mInvincibleObject = GameObject.Instantiate(mInvinciblePrefab);
+        mInvincibleObject.transform.position = this.transform.position;
+        mInvincibleObject.transform.parent = this.transform;
 
         // START THE SHIELD MOD COROUTINE
-        StartCoroutine("ShieldRoutine", time);
+		StartCoroutine("InvincibleRoutine", time);
     }
 
     // COROUTINE FOR SHIELD MOD
-    IEnumerator ShieldRoutine(float time)
+	IEnumerator InvincibleRoutine(float time)
     {
         yield return new WaitForSeconds(time);   // WAIT FOR THE MOD DURATION TO FINISH
-        this.mForceFieldIsActive = false;
-        Destroy(mForceFieldObject);
+		this.mInvincibleIsActive = false;
+        Destroy(mInvincibleObject);
     }
-    #endregion END_SHIELD
+    #endregion END_INVICIBLE
+    
+	#region SHIELD_POWER
+	public void activateShieldPowerup()
+	{
+		mShieldIsActive = true;
+		mShieldObject = GameObject.Instantiate(mShieldObject);
+		mShieldObject.transform.position = this.transform.position;
+		mShieldObject.transform.parent = this.transform;
+	}
+	#endregion END_SHIELD
 
     #region DEATH_EVENTS
     // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
@@ -298,12 +312,18 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     private bool KillProjectile()
     {
-        if (mForceFieldIsActive)
+        if (mInvincibleIsActive)
         {
             // DO NOT HURT THE PLAYER
             this.mAvailShots++;
             Debug.Log("Kill blocked by Shield");
             return false;
+        }
+        else if(mShieldIsActive)
+        {
+        	Destroy(mShieldObject);
+        	mShieldIsActive = false;
+        	return false;
         }
         return true;
     }

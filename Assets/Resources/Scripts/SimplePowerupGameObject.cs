@@ -30,7 +30,7 @@ public class SimplePowerupGameObject : MonoBehaviour {
                     Destroy(this.gameObject);
                     break;
                 case (ePowerups.Shield): // MAKE AS A FUNCTION
-                    c.gameObject.GetComponent<PlayerTopDownMovement>().activateSheildPowerup(8f);
+				c.gameObject.GetComponent<PlayerTopDownMovement>().activateInvinciblePowerup(8f);
                     Destroy(this.gameObject);
                     break;
             }

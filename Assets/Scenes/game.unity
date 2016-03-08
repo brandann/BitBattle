@@ -65,7 +65,6 @@ LightmapSettings:
     m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
-    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -85,6 +84,9 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!127 &5
+LevelGameManager:
+  m_ObjectHideFlags: 0
 --- !u!4 &5515985
 Transform:
   m_ObjectHideFlags: 0
@@ -528,6 +530,10 @@ Prefab:
       propertyPath: mFastPrefab
       value: 
       objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
   m_IsPrefabParent: 0
@@ -843,7 +849,6 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -916,12 +921,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 15
@@ -1381,6 +1380,14 @@ Prefab:
       propertyPath: mAvailShots
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mFastPrefab
+      value: 
+      objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
   m_IsPrefabParent: 0
@@ -1606,6 +1613,14 @@ Prefab:
       propertyPath: mAvailShots
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mFastPrefab
+      value: 
+      objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
   m_IsPrefabParent: 0
@@ -2031,12 +2046,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 15
@@ -2417,6 +2426,14 @@ Prefab:
       propertyPath: mAvailShots
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mFastPrefab
+      value: 
+      objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
   m_IsPrefabParent: 0
@@ -2545,12 +2562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -3356,12 +3367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 15
@@ -3933,12 +3938,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 15
