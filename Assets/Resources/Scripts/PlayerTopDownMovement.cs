@@ -38,6 +38,8 @@ public class PlayerTopDownMovement : MonoBehaviour {
     public GameObject mFastPrefab;
     private GameObject mFastObject;
 
+    public GameObject mBurstPrefab;
+
     public enum ePlayerDeathEvents { Projectile, Lava }
 
     // Use this for initialization
@@ -283,6 +285,8 @@ public class PlayerTopDownMovement : MonoBehaviour {
         
         if(death)
         {
+            var burstGO = GameObject.Instantiate(mBurstPrefab);
+            burstGO.transform.position = this.transform.position;
             this.transform.position = mStartingPosition;
             
             // REGESTER DEATH WITH THE SIMPLE GLOBAL
