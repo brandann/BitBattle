@@ -20,7 +20,7 @@ public class BurstBehavior : MonoBehaviour {
       if (this.transform.localScale.x < .1f) {
           Destroy(this.gameObject);
       }
-      transform.position += (mSpeed * Time.smoothDeltaTime) * transform.up;
+      transform.position += mSpeed * Time.smoothDeltaTime * transform.up;
       this.transform.localScale *= mDecay;
     }
 }
