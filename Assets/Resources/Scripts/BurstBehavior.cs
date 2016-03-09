@@ -3,17 +3,16 @@ using System.Collections;
 
 public class BurstBehavior : MonoBehaviour {
 
-
-    #region privateVar
-    private float timeLived = 0;
-    private float speed = 6;
-    private float dacayRate = .95f;
-    #endregion
+	public Vector2 RandomSpeedRange;
+	public Vector2 RandomDecayRate;
+	
+    private float mSpeed;
+    private float mDecay;
 
     // Use this for initialization
     void Start () {
-
-        int randomInt = Random.Range (0, 2);
+        mSpeed = Random.Range (RandomSpeedRange[0], RandomSpeedRange[1]);
+		mDecay = Random.Range (RandomDecayRate[0], RandomDecayRate[1]);
     }
     
     // Update is called once per frame
@@ -21,7 +20,7 @@ public class BurstBehavior : MonoBehaviour {
       if (this.transform.localScale.x < .1f) {
           Destroy(this.gameObject);
       }
-      transform.position += (speed * Time.smoothDeltaTime) * transform.up;
-      this.transform.localScale *= dacayRate;
+      transform.position += (mSpeed * Time.smoothDeltaTime) * transform.up;
+      this.transform.localScale *= mDecay;
     }
 }

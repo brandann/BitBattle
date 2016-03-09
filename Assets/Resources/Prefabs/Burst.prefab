@@ -40,6 +40,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b78daa961bb044ea28747cac30decd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RandomSpeedRange: {x: 3, y: 9}
+  RandomDecayRate: {x: .899999976, y: .980000019}
 --- !u!212 &21209854
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -96,6 +98,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Color.b
       value: .217344254
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: RandomSpeedRange.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: RandomSpeedRange.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: RandomDecayRate.x
+      value: .899999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: RandomDecayRate.y
+      value: .980000019
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
