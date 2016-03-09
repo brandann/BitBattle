@@ -2804,23 +2804,27 @@ Prefab:
     - target: {fileID: 21233232, guid: 948efcf3042bc2e4d9e0e2f39b0ebd44, type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: dcb1647c17d12bc4eb17799a0789c27d,
+      objectReference: {fileID: 21300000, guid: 7a7427848f4204eb489fa21604b59aff,
         type: 3}
     - target: {fileID: 21233232, guid: 948efcf3042bc2e4d9e0e2f39b0ebd44, type: 2}
       propertyPath: m_Color.r
-      value: 1
+      value: .0145977642
       objectReference: {fileID: 0}
     - target: {fileID: 21233232, guid: 948efcf3042bc2e4d9e0e2f39b0ebd44, type: 2}
       propertyPath: m_Color.g
-      value: 1
+      value: .992647052
       objectReference: {fileID: 0}
     - target: {fileID: 21233232, guid: 948efcf3042bc2e4d9e0e2f39b0ebd44, type: 2}
       propertyPath: m_Color.b
-      value: 1
+      value: .304639935
       objectReference: {fileID: 0}
     - target: {fileID: 196014, guid: 948efcf3042bc2e4d9e0e2f39b0ebd44, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11432012, guid: 948efcf3042bc2e4d9e0e2f39b0ebd44, type: 2}
+      propertyPath: mPowerup
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 948efcf3042bc2e4d9e0e2f39b0ebd44, type: 2}

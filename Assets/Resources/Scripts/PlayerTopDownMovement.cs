@@ -23,21 +23,23 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     private float mSpeedMod = 1;
 
-    private bool mInvincibleIsActive = false;
-
     // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
     private Vector3 mStartingPosition;
 
     // AVAILABLE SHOTS TO THE PLAYER. SHOULD NEVER BE A NEG NUMBER
     public int mAvailShots;
     public int mTotalShotsFired;
+    
+    private bool mFreezeIsActive = false;
 
 	public GameObject mInvinciblePrefab;
     private GameObject mInvincibleObject;
+	private bool mInvincibleIsActive = false;
 
     public GameObject mFastPrefab;
     private GameObject mFastObject;
-    
+	private bool mFastIsActive = false;
+	    
     public GameObject mShieldPrefab;
     private GameObject mShieldObject;
     private bool mShieldIsActive = false;
@@ -205,7 +207,6 @@ public class PlayerTopDownMovement : MonoBehaviour {
     {
         mFastObject = GameObject.Instantiate(mFastPrefab);
         mFastObject.transform.position = this.transform.position;
-        //mFastObject.transform.forward = this.transform.forward;
         mFastObject.transform.parent = this.transform;
 
         // CREATE THE SPEED MOD
@@ -214,6 +215,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
         fm.mod = mod;
 
         // START THE SPEED MOD COROUTINE
+        this.mFastIsActive = true;
         StartCoroutine("FastRoutine", fm);
     }
 
@@ -223,13 +225,18 @@ public class PlayerTopDownMovement : MonoBehaviour {
 		float prevSpeedMod = mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
 		mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
 		yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
-		mSpeedMod = prevSpeedMod;                   // RETURN THE MOD TO ITS PREV MOD
-		//Debug.Log("Powerup Finished");            // DEBUGGING
-		
-		yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
-        //this.mForceFieldIsActive = false;
-        Destroy(mFastObject);
+		if(this.mFastIsActive){
+			deactivateFastPowerup(prevSpeedMod);
+		}
     }
+    
+    private void deactivateFastPowerup(float prev = 1)
+    {
+		Destroy(mFastObject);
+		mSpeedMod = prev;
+		this.mFastIsActive = false;
+		Debug.Log("deactivateFastPowerup");            // DEBUGGING
+	}
     #endregion END_FAST
     
     #region FREEZE_POWER
@@ -242,6 +249,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
         fm.mod = mod;
 
         // START THE SPEED MOD COROUTINE
+        this.mFreezeIsActive = true;
         StartCoroutine("FreezeRoutine", fm);
     }
 
@@ -251,20 +259,28 @@ public class PlayerTopDownMovement : MonoBehaviour {
         float prevSpeedMod = mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
         mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
         yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
-        mSpeedMod = prevSpeedMod;                   // RETURN THE MOD TO ITS PREV MOD
-        //Debug.Log("Powerup Finished");            // DEBUGGING
-    }
-    #endregion END_FREEZE
+        if(this.mFreezeIsActive){
+			deactivateFreezePowerup(prevSpeedMod);
+		}
+	}
+    
+    private void deactivateFreezePowerup(float prev = 1)
+    {
+     	mSpeedMod = prev;                			// RETURN THE MOD TO ITS PREV MOD
+		Debug.Log("deactivateFreezePowerup");       // DEBUGGING
+		this.mFreezeIsActive = false;
+	}
+	#endregion END_FREEZE
 
     #region INVINCIBLE_POWER
 	public void activateInvinciblePowerup(float time)
     {
-		this.mInvincibleIsActive = true;
 		mInvincibleObject = GameObject.Instantiate(mInvinciblePrefab);
         mInvincibleObject.transform.position = this.transform.position;
         mInvincibleObject.transform.parent = this.transform;
 
         // START THE SHIELD MOD COROUTINE
+		this.mInvincibleIsActive = true;
 		StartCoroutine("InvincibleRoutine", time);
     }
 
@@ -272,10 +288,18 @@ public class PlayerTopDownMovement : MonoBehaviour {
 	IEnumerator InvincibleRoutine(float time)
     {
         yield return new WaitForSeconds(time);   // WAIT FOR THE MOD DURATION TO FINISH
-		this.mInvincibleIsActive = false;
-        Destroy(mInvincibleObject);
+		if(this.mInvincibleIsActive){ 
+			deactivateInvinciblePowerup();
+		}
     }
-    #endregion END_INVICIBLE
+    
+	private void deactivateInvinciblePowerup()
+	{
+		this.mInvincibleIsActive = false;
+		Destroy(mInvincibleObject);
+		Debug.Log("deactivateInvinciblePowerup");
+	}
+	#endregion END_INVICIBLE
     
 	#region SHIELD_POWER
 	public void activateShieldPowerup()
@@ -284,6 +308,13 @@ public class PlayerTopDownMovement : MonoBehaviour {
 		mShieldObject = GameObject.Instantiate(mShieldPrefab);
 		mShieldObject.transform.position = this.transform.position;
 		mShieldObject.transform.parent = this.transform;
+	}
+	
+	private void deactivateShieldPowerup()
+	{
+		Destroy(mShieldObject);
+		mShieldIsActive = false;
+		Debug.Log("deactivateShieldPowerup");
 	}
 	#endregion END_SHIELD
 
@@ -304,22 +335,25 @@ public class PlayerTopDownMovement : MonoBehaviour {
         
         if(death)
         {
+        	deactivatePowerups();
+        	
             var burstGO = GameObject.Instantiate(mBurstPrefab);
             burstGO.transform.position = this.transform.position;
             this.transform.position = mStartingPosition;
-            
-            Destroy(mShieldObject);
-            mShieldIsActive = false;
-            
-            Destroy(mInvincibleObject);
-            mInvincibleIsActive = false;
-            
-            Destroy(mFastObject);
             
             // REGESTER DEATH WITH THE SIMPLE GLOBAL
             mGlobalGameObject.GetComponent<SimpleGlobal>().Death((int)mPlayerID);
         }
     }
+    
+    private void deactivatePowerups()
+    {
+		deactivateFastPowerup();
+		deactivateInvinciblePowerup();
+		deactivateFreezePowerup();
+		deactivateShieldPowerup();
+	}
+    
 
     private bool KillLava()
     {
