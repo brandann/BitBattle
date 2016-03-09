@@ -12,6 +12,7 @@ GameObject:
   - 50: {fileID: 5030550}
   - 114: {fileID: 11410554}
   - 58: {fileID: 5818004}
+  - 114: {fileID: 11420588}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -73,10 +74,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mPlayerID: 0
   mForwardSpeed: 6
-  mVelocity: {x: 0, y: 0}
   mBullet: {fileID: 195794, guid: 8b2731fb2a614d64b960426e08c4cdd9, type: 2}
   mGlobalGameObject: {fileID: 0}
   mCamera: {fileID: 0}
+  mAvailShots: 0
+  mTotalShotsFired: 0
+  mBurstPrefab: {fileID: 0}
+--- !u!114 &11420588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf6337a7be12439291a75cfb0f43a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInvinciblePrefab: {fileID: 0}
+  mFastPrefab: {fileID: 0}
+  mShieldPrefab: {fileID: 0}
 --- !u!212 &21274354
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -95,9 +112,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}

@@ -26,15 +26,15 @@ public class SimplePowerupGameObject : MonoBehaviour {
                     Destroy(this.gameObject);
                     break;
                 case (ePowerups.FastSpeed): // MAKE AS A FUNCTION
-                    c.gameObject.GetComponent<PlayerTopDownMovement>().activateFastPowerup(4, 2f);
+                    c.gameObject.GetComponent<PlayerPowerupManager>().activateFastPowerup(4, 2f);
                     Destroy(this.gameObject);
                     break;
                 case (ePowerups.Invicible): // MAKE AS A FUNCTION
-					c.gameObject.GetComponent<PlayerTopDownMovement>().activateInvinciblePowerup(8f);
+					c.gameObject.GetComponent<PlayerPowerupManager>().activateInvinciblePowerup(8f);
                     Destroy(this.gameObject);
                     break;
                 case(ePowerups.Shield):
-                    c.gameObject.GetComponent<PlayerTopDownMovement>().activateShieldPowerup();
+					c.gameObject.GetComponent<PlayerPowerupManager>().activateShieldPowerup();
                     Destroy(this.gameObject);
                     break;
             }
@@ -48,6 +48,6 @@ public class SimplePowerupGameObject : MonoBehaviour {
         // JUST SEND THE ACTIVATED POWERUP AND THE PLAYERS ID TO A CENTRAL CLASS
         // TO SORT OUT WHAT TO DO...
         if((int)p.gameObject.GetComponent<PlayerTopDownMovement>().mPlayerID == id) { return; }
-        p.gameObject.GetComponent<PlayerTopDownMovement>().activateSpeedPowerup(3, 0.3f);
+		p.gameObject.GetComponent<PlayerPowerupManager>().activateSpeedPowerup(3, 0.3f);
     }
 }

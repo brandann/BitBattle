@@ -538,6 +538,18 @@ Prefab:
       propertyPath: mBurstPrefab
       value: 
       objectReference: {fileID: 176788, guid: d7d69b2d0f3f8314ab7d1e1514732c63, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mFastPrefab
+      value: 
+      objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mShieldPrefab
+      value: 
+      objectReference: {fileID: 170564, guid: 0a25a44e7cc394852bb90fa0fea62aee, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
   m_IsPrefabParent: 0
@@ -1400,6 +1412,18 @@ Prefab:
       propertyPath: mShieldPrefab
       value: 
       objectReference: {fileID: 170564, guid: 0a25a44e7cc394852bb90fa0fea62aee, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mFastPrefab
+      value: 
+      objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mShieldPrefab
+      value: 
+      objectReference: {fileID: 170564, guid: 0a25a44e7cc394852bb90fa0fea62aee, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
   m_IsPrefabParent: 0
@@ -1638,6 +1662,18 @@ Prefab:
       value: 
       objectReference: {fileID: 176788, guid: d7d69b2d0f3f8314ab7d1e1514732c63, type: 2}
     - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mShieldPrefab
+      value: 
+      objectReference: {fileID: 170564, guid: 0a25a44e7cc394852bb90fa0fea62aee, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mFastPrefab
+      value: 
+      objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
       propertyPath: mShieldPrefab
       value: 
       objectReference: {fileID: 170564, guid: 0a25a44e7cc394852bb90fa0fea62aee, type: 2}
@@ -2459,6 +2495,18 @@ Prefab:
       value: 
       objectReference: {fileID: 176788, guid: d7d69b2d0f3f8314ab7d1e1514732c63, type: 2}
     - target: {fileID: 11410554, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mShieldPrefab
+      value: 
+      objectReference: {fileID: 170564, guid: 0a25a44e7cc394852bb90fa0fea62aee, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mInvinciblePrefab
+      value: 
+      objectReference: {fileID: 106448, guid: a03ef76296c205048b04d067a36db108, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
+      propertyPath: mFastPrefab
+      value: 
+      objectReference: {fileID: 170372, guid: 5155b6738d034524eba09f0779dce879, type: 2}
+    - target: {fileID: 11420588, guid: bfd94a7a95eef334ea71ebce644281ca, type: 2}
       propertyPath: mShieldPrefab
       value: 
       objectReference: {fileID: 170564, guid: 0a25a44e7cc394852bb90fa0fea62aee, type: 2}

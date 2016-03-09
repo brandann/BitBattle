@@ -21,7 +21,11 @@ public class PlayerTopDownMovement : MonoBehaviour {
     private float mLastFireTime;
     private const float DURATION = 0.25f;
 
-    private float mSpeedMod = 1;
+	private float _speedmod = 1;
+    public float mSpeedMod{
+	    set{ _speedmod = value;}
+	    get{ return _speedmod;}
+    }
 
     // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
     private Vector3 mStartingPosition;
@@ -30,29 +34,19 @@ public class PlayerTopDownMovement : MonoBehaviour {
     public int mAvailShots;
     public int mTotalShotsFired;
     
-    private bool mFreezeIsActive = false;
-
-	public GameObject mInvinciblePrefab;
-    private GameObject mInvincibleObject;
-	private bool mInvincibleIsActive = false;
-
-    public GameObject mFastPrefab;
-    private GameObject mFastObject;
-	private bool mFastIsActive = false;
-	    
-    public GameObject mShieldPrefab;
-    private GameObject mShieldObject;
-    private bool mShieldIsActive = false;
-
     public GameObject mBurstPrefab;
 
     public enum ePlayerDeathEvents { Projectile, Lava }
+    
+    private PlayerPowerupManager mPlayerPowerups;
+    
 
     // Use this for initialization
     void Start () {
         // INIT VARIABLES
         mVelocity = new Vector2(0, 0);
         mStartingPosition = transform.position;
+        mPlayerPowerups = this.GetComponent<PlayerPowerupManager>();
 	}
 	
 	// Update is called once per frame
@@ -193,131 +187,6 @@ public class PlayerTopDownMovement : MonoBehaviour {
         this.mAvailShots++;
     }
 
-    // SPEED MOD STRUCT REQUIRED FOR COROUTINE ONLY ALLOWING A SINGLE
-    // PARAMETER...
-    private struct SpeedMod
-    {
-        public float time;
-        public float mod;
-    }
-
-    #region FAST_POWER
-    // APPLY A SPEED MOD TO THE PLAYER ( +/- )
-    public void activateFastPowerup(float time, float mod)
-    {
-        mFastObject = GameObject.Instantiate(mFastPrefab);
-        mFastObject.transform.position = this.transform.position;
-        mFastObject.transform.parent = this.transform;
-
-        // CREATE THE SPEED MOD
-        SpeedMod fm = new SpeedMod();
-        fm.time = time;
-        fm.mod = mod;
-
-        // START THE SPEED MOD COROUTINE
-        this.mFastIsActive = true;
-        StartCoroutine("FastRoutine", fm);
-    }
-
-    // COROUTINE FOR SHIELD MOD
-	IEnumerator FastRoutine(SpeedMod fm)
-	{
-		float prevSpeedMod = mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
-		mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
-		yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
-		if(this.mFastIsActive){
-			deactivateFastPowerup(prevSpeedMod);
-		}
-    }
-    
-    private void deactivateFastPowerup(float prev = 1)
-    {
-		Destroy(mFastObject);
-		mSpeedMod = prev;
-		this.mFastIsActive = false;
-		Debug.Log("deactivateFastPowerup");            // DEBUGGING
-	}
-    #endregion END_FAST
-    
-    #region FREEZE_POWER
-    // APPLY A SPEED MOD TO THE PLAYER ( +/- )
-    public void activateSpeedPowerup(float time, float mod)
-    {
-        // CREATE THE SPEED MOD
-        SpeedMod fm = new SpeedMod();
-        fm.time = time;
-        fm.mod = mod;
-
-        // START THE SPEED MOD COROUTINE
-        this.mFreezeIsActive = true;
-        StartCoroutine("FreezeRoutine", fm);
-    }
-
-    // COROUTINE FOR SPEED MOD
-    IEnumerator FreezeRoutine(SpeedMod fm)
-    {
-        float prevSpeedMod = mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
-        mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
-        yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
-        if(this.mFreezeIsActive){
-			deactivateFreezePowerup(prevSpeedMod);
-		}
-	}
-    
-    private void deactivateFreezePowerup(float prev = 1)
-    {
-     	mSpeedMod = prev;                			// RETURN THE MOD TO ITS PREV MOD
-		Debug.Log("deactivateFreezePowerup");       // DEBUGGING
-		this.mFreezeIsActive = false;
-	}
-	#endregion END_FREEZE
-
-    #region INVINCIBLE_POWER
-	public void activateInvinciblePowerup(float time)
-    {
-		mInvincibleObject = GameObject.Instantiate(mInvinciblePrefab);
-        mInvincibleObject.transform.position = this.transform.position;
-        mInvincibleObject.transform.parent = this.transform;
-
-        // START THE SHIELD MOD COROUTINE
-		this.mInvincibleIsActive = true;
-		StartCoroutine("InvincibleRoutine", time);
-    }
-
-    // COROUTINE FOR SHIELD MOD
-	IEnumerator InvincibleRoutine(float time)
-    {
-        yield return new WaitForSeconds(time);   // WAIT FOR THE MOD DURATION TO FINISH
-		if(this.mInvincibleIsActive){ 
-			deactivateInvinciblePowerup();
-		}
-    }
-    
-	private void deactivateInvinciblePowerup()
-	{
-		this.mInvincibleIsActive = false;
-		Destroy(mInvincibleObject);
-		Debug.Log("deactivateInvinciblePowerup");
-	}
-	#endregion END_INVICIBLE
-    
-	#region SHIELD_POWER
-	public void activateShieldPowerup()
-	{
-		mShieldIsActive = true;
-		mShieldObject = GameObject.Instantiate(mShieldPrefab);
-		mShieldObject.transform.position = this.transform.position;
-		mShieldObject.transform.parent = this.transform;
-	}
-	
-	private void deactivateShieldPowerup()
-	{
-		Destroy(mShieldObject);
-		mShieldIsActive = false;
-		Debug.Log("deactivateShieldPowerup");
-	}
-	#endregion END_SHIELD
-
     #region DEATH_EVENTS
     // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
     public void kill(ePlayerDeathEvents e)
@@ -348,10 +217,10 @@ public class PlayerTopDownMovement : MonoBehaviour {
     
     private void deactivatePowerups()
     {
-		deactivateFastPowerup();
-		deactivateInvinciblePowerup();
-		deactivateFreezePowerup();
-		deactivateShieldPowerup();
+		mPlayerPowerups.deactivateFastPowerup();
+		mPlayerPowerups.deactivateInvinciblePowerup();
+		mPlayerPowerups.deactivateFreezePowerup();
+		mPlayerPowerups.deactivateShieldPowerup();
 	}
     
 
@@ -363,17 +232,16 @@ public class PlayerTopDownMovement : MonoBehaviour {
 
     private bool KillProjectile()
     {
-        if (mInvincibleIsActive)
+		if (mPlayerPowerups.mInvincibleIsActive)
         {
             // DO NOT HURT THE PLAYER
             this.mAvailShots++;
             Debug.Log("Kill blocked by Shield");
             return false;
         }
-        else if(mShieldIsActive)
+		else if(mPlayerPowerups.mShieldIsActive)
         {
-        	Destroy(mShieldObject);
-        	mShieldIsActive = false;
+			mPlayerPowerups.deactivateShieldPowerup();
         	return false;
         }
         return true;

@@ -11,6 +11,7 @@ public class BurstManager : MonoBehaviour {
 		for(int i = 0; i < mBurstEmitterCount; i++){
 			makeBurstPoint ();
 		}
+		Destroy(this.gameObject);
     }
 
     private void makeBurstPoint() {
