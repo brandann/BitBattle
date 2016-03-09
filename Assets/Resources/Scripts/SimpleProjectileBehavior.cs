@@ -71,7 +71,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         if (mAvailableForPickup)
         {
             // AVAILABLE PROJECTILE GETS PICKED UP BY PLAYER
-            go.PickupBullet();
+            go.gameObject.GetComponent<PlayerFireManager>().PickupBullet();
             Destroy(this.gameObject);
         }
         else 
