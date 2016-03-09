@@ -12,7 +12,7 @@ public class SimpleKillTouch : MonoBehaviour {
     {
         if ((mLayerMask.value & (int)Mathf.Pow(2f, (float)c.gameObject.layer)) != 0)
         {
-            c.gameObject.GetComponent<PlayerTopDownMovement>().kill(PlayerTopDownMovement.ePlayerDeathEvents.Lava);
+			c.gameObject.GetComponent<PlayerStateManager>().kill(PlayerStateManager.ePlayerDeathEvents.Lava);
             //Destroy(c.gameObject);
         }
     }

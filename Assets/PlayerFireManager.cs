@@ -9,7 +9,7 @@ public class PlayerFireManager : MonoBehaviour {
 	
 	public GameObject mBullet;
 	
-	private PlayerTopDownMovement mPlayer;
+	private PlayerStateManager mPlayer;
 	
 	// FIRING DELAY
 	private float mLastFireTime;
@@ -17,7 +17,7 @@ public class PlayerFireManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		mPlayer = this.GetComponent<PlayerTopDownMovement>();
+		mPlayer = this.GetComponent<PlayerStateManager>();
 	}
 	
 	// Update is called once per frame

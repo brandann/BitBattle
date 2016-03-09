@@ -14,6 +14,7 @@ GameObject:
   - 58: {fileID: 5818004}
   - 114: {fileID: 11420588}
   - 114: {fileID: 11494434}
+  - 114: {fileID: 11464066}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -73,10 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632f9f95eb7d59941bb41714f463be80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mPlayerID: 0
   mForwardSpeed: 6
-  mGlobalGameObject: {fileID: 0}
-  mBurstPrefab: {fileID: 0}
+  mPlayer: {fileID: 0}
 --- !u!114 &11420588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,6 +90,20 @@ MonoBehaviour:
   mInvinciblePrefab: {fileID: 0}
   mFastPrefab: {fileID: 0}
   mShieldPrefab: {fileID: 0}
+--- !u!114 &11464066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d75b073cfbf8f47fa92e192c67ce53c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mBurstPrefab: {fileID: 0}
+  mPlayerID: 0
+  mGlobalGameObject: {fileID: 0}
 --- !u!114 &11494434
 MonoBehaviour:
   m_ObjectHideFlags: 1

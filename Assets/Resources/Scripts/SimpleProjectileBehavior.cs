@@ -39,7 +39,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
     {
         if (c.gameObject.tag == "Player")
         {
-            collideWithPlayer(c.gameObject.GetComponent<PlayerTopDownMovement>());
+			collideWithPlayer(c.gameObject.GetComponent<PlayerStateManager>());
         }
         else
         {
@@ -60,7 +60,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         }
     }
 
-    private void collideWithPlayer(PlayerTopDownMovement go)
+	private void collideWithPlayer(PlayerStateManager go)
     {
         if ((int)go.mPlayerID == mOwnerID)
         {
@@ -77,7 +77,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         else 
         {
             // ACTIVE PROJECTILE DIES WHEN COLLISDES WITH A PLAYER
-            go.kill(PlayerTopDownMovement.ePlayerDeathEvents.Projectile);  // PROJECTILE KILLS ME
+			go.kill(PlayerStateManager.ePlayerDeathEvents.Projectile);  // PROJECTILE KILLS ME
             Destroy(this.gameObject);
         }
     }

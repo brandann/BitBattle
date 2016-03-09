@@ -18,7 +18,7 @@ public class SimplePowerupGameObject : MonoBehaviour {
             switch(mPowerup)
             {
                 case (ePowerups.Freeze): // MAKE AS A FUNCTION
-                    int id = (int)c.gameObject.GetComponent<PlayerTopDownMovement>().mPlayerID;
+					int id = (int)c.gameObject.GetComponent<PlayerStateManager>().mPlayerID;
                     FreezePlayer(mPlayer1, id);
                     FreezePlayer(mPlayer2, id);
                     FreezePlayer(mPlayer3, id);
@@ -47,7 +47,7 @@ public class SimplePowerupGameObject : MonoBehaviour {
         // WE DON'T WANT TO ALL POWERUPS TO HAVE A REFRENCE TO EACH PLAYER
         // JUST SEND THE ACTIVATED POWERUP AND THE PLAYERS ID TO A CENTRAL CLASS
         // TO SORT OUT WHAT TO DO...
-        if((int)p.gameObject.GetComponent<PlayerTopDownMovement>().mPlayerID == id) { return; }
+		if((int)p.gameObject.GetComponent<PlayerStateManager>().mPlayerID == id) { return; }
 		p.gameObject.GetComponent<PlayerPowerupManager>().activateSpeedPowerup(3, 0.3f);
     }
 }

@@ -35,11 +35,11 @@ public class PlayerPowerupManager : MonoBehaviour {
 	public GameObject mShieldPrefab;
 	private GameObject mShieldObject;
 	
-	private PlayerTopDownMovement mPlayer;
+	private PlayerTopDownMovement mPlayerMovement;
 	
 	// Use this for initialization
 	void Start () {
-		mPlayer = this.GetComponent<PlayerTopDownMovement>();
+		mPlayerMovement = this.GetComponent<PlayerTopDownMovement>();
 	}
 	
 	// SPEED MOD STRUCT REQUIRED FOR COROUTINE ONLY ALLOWING A SINGLE
@@ -71,8 +71,8 @@ public class PlayerPowerupManager : MonoBehaviour {
 	// COROUTINE FOR SHIELD MOD
 	IEnumerator FastRoutine(SpeedMod fm)
 	{
-		float prevSpeedMod = mPlayer.mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
-		mPlayer.mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
+		float prevSpeedMod = mPlayerMovement.mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
+		mPlayerMovement.mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
 		yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
 		if(this.mFastIsActive){
 			deactivateFastPowerup(prevSpeedMod);
@@ -82,7 +82,7 @@ public class PlayerPowerupManager : MonoBehaviour {
 	public void deactivateFastPowerup(float prev = 1)
 	{
 		Destroy(mFastObject);
-		mPlayer.mSpeedMod = prev;
+		mPlayerMovement.mSpeedMod = prev;
 		this.mFastIsActive = false;
 		Debug.Log("deactivateFastPowerup");            // DEBUGGING
 	}
@@ -105,8 +105,8 @@ public class PlayerPowerupManager : MonoBehaviour {
 	// COROUTINE FOR SPEED MOD
 	IEnumerator FreezeRoutine(SpeedMod fm)
 	{
-		float prevSpeedMod = mPlayer.mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
-		mPlayer.mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
+		float prevSpeedMod = mPlayerMovement.mSpeedMod;             // SAVE THE PREV SPEED MOD FOR RETIEIVAL AFTER MOD IS FINISHED
+		mPlayerMovement.mSpeedMod = fm.mod;                         // SET THE NEW SPEED MOD
 		yield return new WaitForSeconds(fm.time);   // WAIT FOR THE MOD DURATION TO FINISH
 		if(this.mFreezeIsActive){
 			deactivateFreezePowerup(prevSpeedMod);
@@ -115,7 +115,7 @@ public class PlayerPowerupManager : MonoBehaviour {
 	
 	public void deactivateFreezePowerup(float prev = 1)
 	{
-		mPlayer.mSpeedMod = prev;                			// RETURN THE MOD TO ITS PREV MOD
+		mPlayerMovement.mSpeedMod = prev;                			// RETURN THE MOD TO ITS PREV MOD
 		Debug.Log("deactivateFreezePowerup");       // DEBUGGING
 		this.mFreezeIsActive = false;
 	}
