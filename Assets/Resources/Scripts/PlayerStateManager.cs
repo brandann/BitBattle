@@ -56,6 +56,7 @@ public class PlayerStateManager : MonoBehaviour {
 			
 			var burstGO = GameObject.Instantiate(mBurstPrefab);
 			burstGO.transform.position = this.transform.position;
+			burstGO.GetComponent<BurstManager>().mColor = this.GetComponent<SpriteRenderer>().color;
 			mPlayerMovement.ResetPosition();
 			
 			// REGESTER DEATH WITH THE SIMPLE GLOBAL
