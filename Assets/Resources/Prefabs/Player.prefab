@@ -115,9 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79087ac56f1c40e98604afbd8e3f329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mAvailShots: 3
+  mAvailShots: 20
   mTotalShotsFired: 0
   mBullet: {fileID: 195794, guid: 8b2731fb2a614d64b960426e08c4cdd9, type: 2}
+  mProjectile: {fileID: 133238, guid: 8ac690d60be984fa482feed91099c46d, type: 2}
+  mFireProjectile: 0
 --- !u!212 &21274354
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -136,7 +138,9 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -202,8 +206,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: mAvailShots
-      value: 3
+      value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mProjectile
+      value: 
+      objectReference: {fileID: 133238, guid: 8ac690d60be984fa482feed91099c46d, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 165446}

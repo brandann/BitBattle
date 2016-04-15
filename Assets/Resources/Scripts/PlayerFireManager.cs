@@ -8,12 +8,18 @@ public class PlayerFireManager : MonoBehaviour {
 	public int mTotalShotsFired;
 	
 	public GameObject mBullet;
+    public GameObject mProjectile;
+    public bool mFireProjectile;
 	
 	private PlayerStateManager mPlayer;
 	
 	// FIRING DELAY
 	private float mLastFireTime;
 	private const float DURATION = 0.25f;
+
+    // LOAD PROJECTILES
+    private float mLastLoadTime;
+    private const float LOAD_DURATION = 1;
 	
 	// Use this for initialization
 	void Start () {
@@ -23,6 +29,18 @@ public class PlayerFireManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Fire(); // HANDLE SHOOTING
+
+        if(mProjectile)
+        {
+            if(Time.timeSinceLevelLoad - mLastLoadTime > LOAD_DURATION)
+            {
+                if(mAvailShots < 20)
+                {
+                    mAvailShots++;
+                    mLastLoadTime = Time.timeSinceLevelLoad;
+                }
+            }
+        }
 	}
 	
 	public void PickupBullet()
@@ -32,6 +50,29 @@ public class PlayerFireManager : MonoBehaviour {
 	
 	private void Fire()
 	{
+        if(mFireProjectile)
+        {
+            if (((Time.timeSinceLevelLoad - mLastFireTime) > DURATION) && Input.GetAxis(InputMap.TriggerR + (int)mPlayer.mPlayerID) > 0)
+            {
+                // RESET THE TIME OF THE THIS SHOOT BEING FIRED
+                mLastFireTime = Time.timeSinceLevelLoad;
+
+                // CHECK TO MAKE SURE THE PLAYER HAS SOME SHOTS AVAILABLE
+                if (mAvailShots <= 0) { return; }
+
+                // SHOT COUNTERS
+                mAvailShots--;
+                mTotalShotsFired++;
+
+                var g3 = GameObject.Instantiate(mProjectile);
+                g3.transform.position = this.transform.position + this.transform.up;
+                var SMF = g3.GetComponent<SimpleMoveForward>();
+                SMF.Target = this.transform.position + (this.transform.up * 1000);
+            }
+
+            return;
+        }
+
 		if (Input.GetButton(InputMap.ButtonB + (int) mPlayer.mPlayerID))
 		{
 			RaycastHit2D hit1;
