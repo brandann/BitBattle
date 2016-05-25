@@ -28,7 +28,7 @@ public class SimpleMoveForward : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D c)
 	{
-		if (c.gameObject.tag == "Player")
+        if ((c.gameObject.tag == "Player") || (c.gameObject.tag == "platform"))
 		{
 			var burstGO = GameObject.Instantiate(mBurstPrefab);
 			burstGO.transform.position = this.transform.position;

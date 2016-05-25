@@ -23,6 +23,9 @@ public class SimpleShootPrefab : MonoBehaviour {
 			
 			//GOSimpleMoveForward.Target = this.transform.up * 100;
 			_LastShotTime = Time.timeSinceLevelLoad;
+            go.transform.position = this.transform.position;
+            //go.transform.LookAt(this.transform.position + this.transform.forward);
+            go.transform.up = this.transform.up;
 		}
 	}
 }

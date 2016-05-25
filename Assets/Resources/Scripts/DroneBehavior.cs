@@ -25,5 +25,17 @@ public class DroneBehavior : MonoBehaviour {
             burstGO.GetComponent<BurstManager>().mColor = Color.white;
             Destroy(this.transform.parent.gameObject);
         }
+
+    }
+
+    void OnCollisionEnter2D(Collision2D c)
+    {
+        if(c.gameObject.tag == "platform")
+        {
+            var burstGO = GameObject.Instantiate(mBurstPrefab);
+            burstGO.transform.position = this.transform.position;
+            burstGO.GetComponent<BurstManager>().mColor = this.transform.parent.GetComponent<SpriteRenderer>().color;
+            Destroy(this.transform.parent.gameObject);
+        }
     }
 }
