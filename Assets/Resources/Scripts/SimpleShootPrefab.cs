@@ -19,9 +19,9 @@ public class SimpleShootPrefab : MonoBehaviour {
 		{
 			var go = GameObject.Instantiate(Prefab);
 			//go.AddComponent<SimpleMoveForward>();
-			var GOSimpleMoveForward = go.GetComponent<SimpleMoveForward>();
+			//var GOSimpleMoveForward = go.GetComponent<SimpleMoveForward>();
 			
-			GOSimpleMoveForward.Target = this.transform.up * 100;
+			//GOSimpleMoveForward.Target = this.transform.up * 100;
 			_LastShotTime = Time.timeSinceLevelLoad;
 		}
 	}

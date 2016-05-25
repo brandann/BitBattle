@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+
 using System.Collections;
 
 public class SimpleKillTouch : MonoBehaviour {
@@ -14,6 +14,7 @@ public class SimpleKillTouch : MonoBehaviour {
         {
 			c.gameObject.GetComponent<PlayerStateManager>().kill(PlayerStateManager.ePlayerDeathEvents.Lava);
             //Destroy(c.gameObject);
+            //using UnityEditor;
         }
     }
 }
