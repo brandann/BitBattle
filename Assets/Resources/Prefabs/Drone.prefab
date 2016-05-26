@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 432794}
   - 58: {fileID: 5894040}
   - 114: {fileID: 11419488}
+  - 50: {fileID: 5062808}
   m_Layer: 0
   m_Name: DroneCollider
   m_TagString: Untagged
@@ -61,6 +62,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 402646}
   m_RootOrder: 0
+--- !u!50 &5062808
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122740}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &5855738
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -197,6 +214,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: mLayerMask.m_Bits
       value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -15,9 +15,9 @@ public class DroneBehavior : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        print("Collide");
         if (c.gameObject.tag == "Player")
         {
+            print("Collide");
             print("Collide With Player");
             c.gameObject.SendMessage("kill", PlayerStateManager.ePlayerDeathEvents.Projectile);
             var burstGO = GameObject.Instantiate(mBurstPrefab);
@@ -35,6 +35,17 @@ public class DroneBehavior : MonoBehaviour {
             var burstGO = GameObject.Instantiate(mBurstPrefab);
             burstGO.transform.position = this.transform.position;
             burstGO.GetComponent<BurstManager>().mColor = this.transform.parent.GetComponent<SpriteRenderer>().color;
+            Destroy(this.transform.parent.gameObject);
+        }
+
+        if (c.gameObject.tag == "Player")
+        {
+            print("Collide");
+            print("Collide With Player");
+            c.gameObject.SendMessage("kill", PlayerStateManager.ePlayerDeathEvents.Projectile);
+            var burstGO = GameObject.Instantiate(mBurstPrefab);
+            burstGO.transform.position = this.transform.position;
+            burstGO.GetComponent<BurstManager>().mColor = Color.white;
             Destroy(this.transform.parent.gameObject);
         }
     }

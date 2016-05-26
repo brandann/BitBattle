@@ -19,12 +19,18 @@ public class SimpleGlobal : MonoBehaviour {
     public void Death(int PlayerID)
     {
         // INCREMENT THE DEATH COUNT
-        mScores[PlayerID-1]++;
+        mScores[PlayerID-1]--;
+    }
 
-        // DISPLAY THE OTHER PLAYERS DEATH COUNT AS YOUR SCORE
-        mPlayer1ScoreText.text = "" + mScores[0] * -1 + " P" + 1;
-        mPlayer2ScoreText.text = "" + mScores[1] * -1 + " P" + 2;
-        mPlayer3ScoreText.text = "" + mScores[2] * -1 + " P" + 3;
-        mPlayer4ScoreText.text = "" + mScores[3] * -1 + " P" + 4;
+    void Start()
+    {
+    }
+
+    void Update()
+    {
+        mPlayer1ScoreText.text = " P1: " + mScores[0];
+        mPlayer2ScoreText.text = " P2: " + mScores[1];
+        mPlayer3ScoreText.text = " P3: " + mScores[2];
+        mPlayer4ScoreText.text = " P4: " + mScores[3];
     }
 }
