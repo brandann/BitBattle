@@ -71,6 +71,11 @@ public class PlayerFireManager : MonoBehaviour {
                 SMF.Target = this.transform.position + (this.transform.up * 1000);
                 var SKT = g3.GetComponent<SimpleKillTouch>();
                 SKT.setPlayer(this.mPlayer.mPlayerID);
+                var SR = g3.GetComponent<SpriteRenderer>();
+                if(mPlayer.mPlayerID == ePlayerID.Player1)
+                    SR.color = new Color32(180, 95, 191, 255);
+                else if (mPlayer.mPlayerID == ePlayerID.Player2)
+                    SR.color = new Color32(118, 178, 110, 255);
             }
 
             return;

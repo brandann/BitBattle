@@ -5,6 +5,7 @@ using witchplease;
 public class SeekingBehavior : MonoBehaviour {
 
     public GameObject mOther;
+    public ePlayerID owner;
 
     public float mSpeed;
     public float mRotation;
@@ -32,9 +33,26 @@ public class SeekingBehavior : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.tag == "Player" && c.gameObject.GetComponent<PlayerStateManager>().mPlayerID != owner)
         {
             mOther = c.gameObject;
         }
+    }
+
+    void OnTriggerExit2D(Collider2D c)
+    {
+        if(mOther == c.gameObject)
+            mOther = null;
+    }
+
+    public void setPlayer(ePlayerID id)
+    {
+        owner = id;
+        this.GetComponentInChildren<DroneBehavior>().owner = id;
+    }
+
+    public void SetTargetPosition(Vector3 Target)
+    {
+        transform.LookAt(transform.position + new Vector3(0, 0, 1), Target + transform.position);
     }
 }

@@ -3,8 +3,11 @@ using System.Collections;
 using witchplease;
 
 public class DroneBehavior : MonoBehaviour {
+    
     public GameObject mBurstPrefab;
-	// Use this for initialization
+    public ePlayerID owner;
+    
+    // Use this for initialization
 	void Start () {
 	
 	}
@@ -16,7 +19,7 @@ public class DroneBehavior : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.tag == "Player" && owner != c.gameObject.GetComponent<PlayerStateManager>().mPlayerID)
         {
             print("Collide");
             print("Collide With Player");
@@ -26,7 +29,6 @@ public class DroneBehavior : MonoBehaviour {
             burstGO.GetComponent<BurstManager>().mColor = Color.white;
             Destroy(this.transform.parent.gameObject);
         }
-
     }
 
     void OnCollisionEnter2D(Collision2D c)
@@ -39,7 +41,7 @@ public class DroneBehavior : MonoBehaviour {
             Destroy(this.transform.parent.gameObject);
         }
 
-        if (c.gameObject.tag == "Player")
+        if (c.gameObject.tag == "Player" && owner != c.gameObject.GetComponent<PlayerStateManager>().mPlayerID)
         {
             print("Collide");
             print("Collide With Player");
