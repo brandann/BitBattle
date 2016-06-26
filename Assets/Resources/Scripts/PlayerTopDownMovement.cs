@@ -9,7 +9,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
     private Vector2 mVelocity;
 
     //public GameObject mCamera;
-    public PlayerStateManager mPlayer;
+    private PlayerStateManager mPlayer;
 
 	private float _speedmod = 1;
     public float mSpeedMod{
@@ -18,7 +18,7 @@ public class PlayerTopDownMovement : MonoBehaviour {
     }
 
     // STARTING LOCATION BASED OF UNITY LOCATION OF GAMEOBJECT
-    private Vector3 mStartingPosition;
+    public Vector3 mStartingPosition;
 
     // Use this for initialization
     void Start () {

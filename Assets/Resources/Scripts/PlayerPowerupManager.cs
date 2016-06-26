@@ -34,12 +34,12 @@ public class PlayerPowerupManager : MonoBehaviour {
 	
 	public GameObject mShieldPrefab;
 	private GameObject mShieldObject;
-	
-	private PlayerTopDownMovement mPlayerMovement;
+
+    private Player2AxisMovement mPlayerMovement;
 	
 	// Use this for initialization
 	void Start () {
-		mPlayerMovement = this.GetComponent<PlayerTopDownMovement>();
+        mPlayerMovement = this.GetComponent<Player2AxisMovement>();
 	}
 	
 	// SPEED MOD STRUCT REQUIRED FOR COROUTINE ONLY ALLOWING A SINGLE

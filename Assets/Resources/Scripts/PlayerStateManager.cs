@@ -5,7 +5,7 @@ public class PlayerStateManager : MonoBehaviour {
 
 	private PlayerPowerupManager mPlayerPowerups;
 	private PlayerFireManager mPlayerFire;
-	private PlayerTopDownMovement mPlayerMovement;
+    private Player2AxisMovement mPlayerMovement;
 	
 	public GameObject mBurstPrefab;
 	
@@ -22,7 +22,7 @@ public class PlayerStateManager : MonoBehaviour {
 	void Start () {
 		mPlayerPowerups = this.GetComponent<PlayerPowerupManager>();
 		mPlayerFire = this.GetComponent<PlayerFireManager>();
-		mPlayerMovement = this.GetComponent<PlayerTopDownMovement>();
+        mPlayerMovement = this.GetComponent<Player2AxisMovement>();
 	}
 	
 	// Update is called once per frame
