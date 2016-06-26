@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-
 using System.Collections;
+using witchplease;
 
 public class SimpleKillTouch : MonoBehaviour {
 
     public LayerMask mLayerMask;
-    private PlayerStateManager.ePlayerID owner;
-    public PlayerStateManager.ePlayerDeathEvents DeathEvent;
+    private ePlayerID owner;
+    public ePlayerDeathEvents DeathEvent;
 
     // mLayerMask CONTAINS THE LAYERS THAT WILL BE DESTROYED IF COLLIDED WITH
     // 2^this.gameObject.layer TO GET THE GO.LAYER UP TO THE mLayerMask POWER
@@ -26,7 +26,7 @@ public class SimpleKillTouch : MonoBehaviour {
         }
     }
 
-    public void setPlayer(PlayerStateManager.ePlayerID id)
+    public void setPlayer(ePlayerID id)
     {
         owner = id;
     }

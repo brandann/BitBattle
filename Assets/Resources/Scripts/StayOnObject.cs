@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using witchplease;
 
 public class StayOnObject : MonoBehaviour {
     public GameObject mTargetObject;

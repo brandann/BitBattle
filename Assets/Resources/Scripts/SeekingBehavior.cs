@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using witchplease;
 
 public class SeekingBehavior : MonoBehaviour {
 
@@ -7,6 +8,8 @@ public class SeekingBehavior : MonoBehaviour {
 
     public float mSpeed;
     public float mRotation;
+
+    private 
 
 	// Use this for initialization
 	void Start () {

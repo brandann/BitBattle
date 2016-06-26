@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using witchplease;
 
 public class BurstManager : MonoBehaviour {
 

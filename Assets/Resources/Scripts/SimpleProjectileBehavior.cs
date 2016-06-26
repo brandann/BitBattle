@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using witchplease;
 
 public class SimpleProjectileBehavior : MonoBehaviour {
     
@@ -77,7 +78,7 @@ public class SimpleProjectileBehavior : MonoBehaviour {
         else 
         {
             // ACTIVE PROJECTILE DIES WHEN COLLISDES WITH A PLAYER
-			go.kill(PlayerStateManager.ePlayerDeathEvents.Projectile);  // PROJECTILE KILLS ME
+			go.kill(ePlayerDeathEvents.Projectile);  // PROJECTILE KILLS ME
             Destroy(this.gameObject);
         }
     }

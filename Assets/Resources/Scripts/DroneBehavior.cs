@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using witchplease;
 
 public class DroneBehavior : MonoBehaviour {
     public GameObject mBurstPrefab;
@@ -19,7 +20,7 @@ public class DroneBehavior : MonoBehaviour {
         {
             print("Collide");
             print("Collide With Player");
-            c.gameObject.SendMessage("kill", PlayerStateManager.ePlayerDeathEvents.Projectile);
+            c.gameObject.SendMessage("kill", ePlayerDeathEvents.Projectile);
             var burstGO = GameObject.Instantiate(mBurstPrefab);
             burstGO.transform.position = this.transform.position;
             burstGO.GetComponent<BurstManager>().mColor = Color.white;
@@ -42,7 +43,7 @@ public class DroneBehavior : MonoBehaviour {
         {
             print("Collide");
             print("Collide With Player");
-            c.gameObject.SendMessage("kill", PlayerStateManager.ePlayerDeathEvents.Projectile);
+            c.gameObject.SendMessage("kill", ePlayerDeathEvents.Projectile);
             var burstGO = GameObject.Instantiate(mBurstPrefab);
             burstGO.transform.position = this.transform.position;
             burstGO.GetComponent<BurstManager>().mColor = Color.white;
