@@ -90,7 +90,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 6
 --- !u!58 &5894040
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mBurstPrefab: {fileID: 176788, guid: d7d69b2d0f3f8314ab7d1e1514732c63, type: 2}
+  owner: 0
 --- !u!114 &11431228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,6 +131,7 @@ MonoBehaviour:
   mLayerMask:
     serializedVersion: 2
     m_Bits: 1280
+  DeathEvent: 0
 --- !u!114 &11459620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mOther: {fileID: 0}
+  owner: 0
   mSpeed: 3
   mRotation: 90
 --- !u!212 &21285478
@@ -218,6 +221,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

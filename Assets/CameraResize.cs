@@ -5,7 +5,8 @@ public class CameraResize : MonoBehaviour {
 
     public GameObject[] Players;
 
-    private const float DISTANCE_MULTIPLIER = 1.5f;
+    public float DISTANCE_MULTIPLIER = 1.5f;
+    public float DISTANCE_ADDITION = 1;
     private const float CAMERA_MIN = 6;
     private const float CAMERA_MAX = 15;
 
@@ -23,8 +24,8 @@ public class CameraResize : MonoBehaviour {
         this.transform.position = center;
         
         // set size of camera
-        var dist = Get2Distance(Players[0].transform.position, Players[1].transform.position);
-        this.GetComponent<Camera>().orthographicSize = Mathf.Clamp(dist * DISTANCE_MULTIPLIER * .5f, CAMERA_MIN, CAMERA_MAX);
+        var dist = Get2Distance(Players[0].transform.position, Players[1].transform.position) * 0.5f;
+        this.GetComponent<Camera>().orthographicSize = Mathf.Clamp(dist * DISTANCE_MULTIPLIER + DISTANCE_ADDITION, CAMERA_MIN, CAMERA_MAX);
 	}
 
     private Vector3 Get2MidPoint(Vector3 v1, Vector3 v2)
