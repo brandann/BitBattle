@@ -43,10 +43,10 @@ public class PlayerStateManager : MonoBehaviour {
 		switch(e)
 		{
 		case (ePlayerDeathEvents.Projectile):
-			death = KillProjectile();
+			death = isKilledByProjectile();
 			break;
 		case (ePlayerDeathEvents.Lava):
-			death = KillLava();
+			death = isKilledByLava();
 			break;
 		}
 		
@@ -72,13 +72,13 @@ public class PlayerStateManager : MonoBehaviour {
 		mPlayerPowerups.deactivateShieldPowerup();
 	}
 	
-	private bool KillLava()
+	private bool isKilledByLava()
 	{
 		// RIGHT NOW LAVA KILLS YOU NO MATTER WHAT!
 		return true; 
 	}
 	
-	private bool KillProjectile()
+	private bool isKilledByProjectile()
 	{
 		if (mPlayerPowerups.mInvincibleIsActive)
 		{

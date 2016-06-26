@@ -68,6 +68,8 @@ public class PlayerFireManager : MonoBehaviour {
                 g3.transform.position = this.transform.position + this.transform.up;
                 var SMF = g3.GetComponent<SimpleMoveForward>();
                 SMF.Target = this.transform.position + (this.transform.up * 1000);
+                var SKT = g3.GetComponent<SimpleKillTouch>();
+                SKT.setPlayer(this.mPlayer.mPlayerID);
             }
 
             return;

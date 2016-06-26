@@ -28,12 +28,20 @@ public class SimpleMoveForward : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D c)
 	{
-        if ((c.gameObject.tag == "Player") || (c.gameObject.tag == "platform"))
-		{
-			var burstGO = GameObject.Instantiate(mBurstPrefab);
-			burstGO.transform.position = this.transform.position;
-			burstGO.GetComponent<BurstManager>().mColor = this.GetComponent<SpriteRenderer>().color;
-			Destroy(this.gameObject);
-		}
+        if (c.gameObject.tag == "platform")
+        {
+            var burstGO = GameObject.Instantiate(mBurstPrefab);
+            burstGO.transform.position = this.transform.position;
+            burstGO.GetComponent<BurstManager>().mColor = this.GetComponent<SpriteRenderer>().color;
+            Destroy(this.gameObject);
+        }
 	}
+
+    public void DoHitAPlayer()
+    {
+        var burstGO = GameObject.Instantiate(mBurstPrefab);
+        burstGO.transform.position = this.transform.position;
+        burstGO.GetComponent<BurstManager>().mColor = this.GetComponent<SpriteRenderer>().color;
+        Destroy(this.gameObject);
+    }
 }
