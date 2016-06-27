@@ -1222,6 +1222,8 @@ MonoBehaviour:
   Players:
   - {fileID: 752504651}
   - {fileID: 645908352}
+  DISTANCE_MULTIPLIER: 1.10000002
+  DISTANCE_ADDITION: 2
 --- !u!1 &447588181
 GameObject:
   m_ObjectHideFlags: 0

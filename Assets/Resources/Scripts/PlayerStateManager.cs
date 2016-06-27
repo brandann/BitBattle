@@ -23,12 +23,24 @@ public class PlayerStateManager : MonoBehaviour
         mPlayerPowerups = this.GetComponent<PlayerPowerupManager>();
         mPlayerFire = this.GetComponent<PlayerFireManager>();
         mPlayerMovement = this.GetComponent<Player2AxisMovement>();
+        Global.Health(mPlayerID, 1, true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Global.Health(mPlayerID) <= 0)
+        {
+            deactivatePowerups();
 
+            var burstGO = GameObject.Instantiate(mBurstPrefab);
+            burstGO.transform.position = this.transform.position;
+            burstGO.GetComponent<BurstManager>().mColor = this.GetComponent<SpriteRenderer>().color;
+            mPlayerMovement.ResetPosition();
+
+            // REGESTER DEATH WITH THE SIMPLE GLOBAL
+            Global.Death(mPlayerID);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D c)
@@ -40,28 +52,20 @@ public class PlayerStateManager : MonoBehaviour
     // KILL THE PLAYER AND REPORT THE DEATH TO GLOBAL
     public void kill(ePlayerDeathEvents e)
     {
-        bool death = false;
+        bool hit = false;
         switch (e)
         {
             case (ePlayerDeathEvents.Projectile):
-                death = isKilledByProjectile();
+                hit = isKilledByProjectile();
                 break;
             case (ePlayerDeathEvents.Lava):
-                death = isKilledByLava();
+                hit = isKilledByLava();
                 break;
         }
 
-        if (death)
+        if(hit)
         {
-            deactivatePowerups();
-
-            var burstGO = GameObject.Instantiate(mBurstPrefab);
-            burstGO.transform.position = this.transform.position;
-            burstGO.GetComponent<BurstManager>().mColor = this.GetComponent<SpriteRenderer>().color;
-            mPlayerMovement.ResetPosition();
-
-            // REGESTER DEATH WITH THE SIMPLE GLOBAL
-            Global.Death((int)mPlayerID);
+            Global.Health(mPlayerID, -0.1f);
         }
     }
 
@@ -84,7 +88,6 @@ public class PlayerStateManager : MonoBehaviour
         if (mPlayerPowerups.mInvincibleIsActive)
         {
             // DO NOT HURT THE PLAYER
-            mPlayerFire.mAvailShots++;
             Debug.Log("Kill blocked by Shield");
             return false;
         }

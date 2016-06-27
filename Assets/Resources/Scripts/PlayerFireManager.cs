@@ -5,8 +5,8 @@ using witchplease;
 public class PlayerFireManager : MonoBehaviour {
 
 	// AVAILABLE SHOTS TO THE PLAYER. SHOULD NEVER BE A NEG NUMBER
-	public int mAvailShots;
-	public int mTotalShotsFired;
+	private int mAvailShots = 9999999;
+	private int mTotalShotsFired;
 	
 	public GameObject mBullet;
     public GameObject mProjectile;
@@ -16,7 +16,7 @@ public class PlayerFireManager : MonoBehaviour {
 	
 	// FIRING DELAY
 	private float mLastFireTime;
-	private const float DURATION = 0.25f;
+	private const float DURATION = 0.1f;
 
     // LOAD PROJECTILES
     private float mLastLoadTime;

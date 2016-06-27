@@ -45,4 +45,13 @@ public class SimpleMoveForward : MonoBehaviour {
         burstGO.GetComponent<BurstManager>().mColor = this.GetComponent<SpriteRenderer>().color;
         Destroy(this.gameObject);
     }
+
+    public void DoHitAPlayer(Color c)
+    {
+        var burstGO = GameObject.Instantiate(mBurstPrefab);
+        burstGO.transform.position = this.transform.position;
+        burstGO.GetComponent<BurstManager>().mColor = c;
+        Destroy(this.gameObject);
+        DoHitAPlayer();
+    }
 }

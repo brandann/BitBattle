@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {x: 0, y: 0, z: 0}
-  Speed: 5
+  Speed: 9
   mBurstPrefab: {fileID: 176788, guid: d7d69b2d0f3f8314ab7d1e1514732c63, type: 2}
   DeathDelay: 15
 --- !u!212 &21285510
@@ -128,7 +128,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: Speed
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: mBurstPrefab

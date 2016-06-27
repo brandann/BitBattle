@@ -20,7 +20,7 @@ public class SimpleKillTouch : MonoBehaviour {
                 var SMF = this.GetComponent <SimpleMoveForward>();
                 if(null != SMF)
                 {
-                    SMF.DoHitAPlayer();
+                    SMF.DoHitAPlayer(c.gameObject.GetComponent<SpriteRenderer>().color);
                 }
             }
         }
