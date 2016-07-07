@@ -22,8 +22,8 @@ public class SimplePowerupGameObject : MonoBehaviour {
 					int id = (int)c.gameObject.GetComponent<PlayerStateManager>().mPlayerID;
                     FreezePlayer(mPlayer1, id);
                     FreezePlayer(mPlayer2, id);
-                    FreezePlayer(mPlayer3, id);
-                    FreezePlayer(mPlayer4, id);
+                    //FreezePlayer(mPlayer3, id);
+                    //FreezePlayer(mPlayer4, id);
                     Destroy(this.gameObject);
                     break;
                 case (ePowerups.FastSpeed): // MAKE AS A FUNCTION

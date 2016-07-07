@@ -6,6 +6,7 @@ namespace witchplease
 {
     public enum ePlayerDeathEvents { Projectile, Lava }
     public enum ePlayerID { Player1 = 1, Player2 = 2, Player3 = 3, Player4 = 4 }
+    public enum eScenes {game, Menu}
 
     public class Global : MonoBehaviour
     {
